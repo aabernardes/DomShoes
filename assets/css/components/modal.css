@@ -1,0 +1,110 @@
+/* === Modal Styles === */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050; /* Above header, below potential higher elements */
+  opacity: 0; /* Hidden by default */
+  visibility: hidden;
+  transition: opacity var(--transition-speed) var(--transition-timing),
+              visibility 0s linear var(--transition-speed); /* Delay visibility change */
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s; /* Remove delay when showing */
+}
+
+.modal {
+  background-color: var(--primary-white);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--box-shadow-medium);
+  max-width: 500px; /* Default max width */
+  width: 90%; /* Responsive width */
+  position: relative;
+  transform: scale(0.95) translateY(-20px); /* Start slightly scaled down and up */
+  opacity: 0;
+  transition: transform var(--transition-speed) var(--transition-timing),
+              opacity var(--transition-speed) var(--transition-timing);
+}
+
+.modal-overlay.active .modal {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--neutral-lighter);
+}
+
+.modal-title {
+  font-size: var(--font-size-lg);
+  margin-bottom: 0; /* Remove default heading margin */
+}
+
+.modal-close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--neutral-medium);
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 var(--spacing-xs); /* Small clickable area */
+  transition: color var(--transition-speed) var(--transition-timing);
+}
+
+.modal-close-button:hover {
+  color: var(--neutral-dark);
+}
+
+.modal-body {
+  margin-bottom: var(--spacing-lg);
+  max-height: 60vh; /* Limit body height and enable scroll */
+  overflow-y: auto; /* Add scroll if content exceeds max height */
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--neutral-lighter);
+}
+
+/* Sizes */
+.modal-sm {
+  max-width: 350px;
+}
+
+.modal-lg {
+  max-width: 800px;
+}
+
+.modal-xl {
+  max-width: 1140px;
+}
+
+
+@media screen and (max-width: 768px) {
+    .modal {
+        width: 95%;
+        padding: var(--spacing-md);
+    }
+    .modal-body {
+        max-height: 70vh; /* Allow slightly more height on mobile */
+    }
+}

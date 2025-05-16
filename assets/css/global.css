@@ -1,0 +1,184 @@
+:root {
+  /* Colors */
+  --primary-red: #5A0909; /* Navbar, Rodapé e Botões */
+  --site-background: #EEEEEE; /* Fundo do site (Branco Gelo) */
+  --primary-white: #FFFFFF; /* Propagandas, Notificação, Abas de seleção, Carrinho lateral, Info lateral do produto, Info botões vermelhos */
+  --payment-green: #7CE168; /* Área do pagamento (Verde Lima) */
+
+  /* Mantidas ou ajustadas conforme necessidade geral */
+  --neutral-dark: #333333; /* Cor de texto padrão, pode ser mantida ou ajustada se necessário */
+  --neutral-medium: #666666; /* Cor de texto secundária, pode ser mantida ou ajustada se necessário */
+  --neutral-light: #f4f4f4; /* Pode ser usada para bordas sutis ou fundos alternados, manter ou ajustar */
+  /* --neutral-lighter: #eeeeee; foi substituída por --site-background */
+  --accent-blue: #3498db; /* Elementos interativos que não são botões primários, manter ou ajustar */
+  --success-green: #4CAF50; /* Verde genérico para mensagens de sucesso, manter ou ajustar se --payment-green for exclusivo da área de pagamento */
+  --error-red: #f44336; /* Vermelho genérico para mensagens de erro, manter ou ajustar se --primary-red for exclusivo dos elementos de navegação/botões primários */
+
+
+  /* Typography */
+  --font-family-sans: 'Arial', sans-serif; /* Keep it simple */
+  --font-size-base: 16px;
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.5rem;   /* 24px */
+  --font-size-xxl: 2rem;   /* 32px */
+
+  /* Spacing */
+  --spacing-xs: 0.25rem; /* 4px */
+  --spacing-sm: 0.5rem;  /* 8px */
+  --spacing-md: 1rem;    /* 16px */
+  --spacing-lg: 1.5rem;  /* 24px */
+  --spacing-xl: 2rem;    /* 32px */
+  --spacing-xxl: 3rem;   /* 48px */
+
+  /* Borders & Shadows */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 16px;
+  --box-shadow-light: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --box-shadow-medium: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+
+  /* Transitions */
+  --transition-speed: 0.3s;
+  --transition-timing: ease-in-out;
+
+  /* Layout */
+  --container-max-width: 1200px;
+  --header-height: 70px;
+  --admin-sidebar-width: 250px;
+}
+
+/* Basic Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: var(--neutral-dark);
+  background-color: var(--primary-white);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-top: var(--header-height); /* Prevent content from hiding behind fixed header */
+}
+
+main {
+  flex-grow: 1; /* Ensure footer stays at the bottom */
+}
+
+a {
+  color: var(--accent-blue);
+  text-decoration: none;
+  transition: color var(--transition-speed) var(--transition-timing);
+}
+
+a:hover {
+  color: var(--primary-red);
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: var(--spacing-md);
+  line-height: 1.3;
+  font-weight: 600; /* Slightly bolder */
+}
+
+h1 { font-size: var(--font-size-xxl); }
+h2 { font-size: var(--font-size-xl); }
+h3 { font-size: var(--font-size-lg); }
+
+p {
+  margin-bottom: var(--spacing-md);
+}
+
+/* Utility Classes */
+.container {
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--spacing-md);
+  padding-right: var(--spacing-md);
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.margin-top-md {
+  margin-top: var(--spacing-md);
+}
+.margin-bottom-md {
+  margin-bottom: var(--spacing-md);
+}
+.margin-top-lg {
+  margin-top: var(--spacing-lg);
+}
+.margin-bottom-lg {
+  margin-bottom: var(--spacing-lg);
+}
+.padding-y-lg {
+    padding-top: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+}
+.padding-y-xl {
+    padding-top: var(--spacing-xl);
+    padding-bottom: var(--spacing-xl);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  :root {
+    --font-size-base: 15px;
+    --header-height: 60px;
+  }
+
+  body {
+     padding-top: var(--header-height);
+  }
+
+  .container {
+    padding-left: var(--spacing-sm);
+    padding-right: var(--spacing-sm);
+  }
+
+  h1 { font-size: var(--font-size-xl); }
+  h2 { font-size: 1.3rem; } /* Custom size between lg and xl */
+  h3 { font-size: var(--font-size-base); }
+}

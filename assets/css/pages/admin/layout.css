@@ -1,0 +1,161 @@
+/* === Admin Layout Styles === */
+
+body.admin-page {
+    display: flex;
+    padding-top: 0; /* Remove padding added for store header */
+}
+
+.admin-sidebar {
+    width: var(--admin-sidebar-width);
+    flex-shrink: 0;
+    background-color: var(--neutral-dark);
+    color: var(--neutral-light);
+    min-height: 100vh; /* Full height sidebar */
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-logo {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.admin-logo img {
+    max-height: 50px; /* Adjust as needed */
+    width: auto;
+    filter: brightness(0) invert(1); /* Make logo white */
+}
+
+.admin-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1; /* Push logout down */
+}
+
+.admin-nav li {
+    margin-bottom: var(--spacing-xs);
+}
+
+.admin-nav a {
+    display: flex; /* Use flex for icon alignment */
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    color: var(--neutral-light);
+    text-decoration: none;
+    border-radius: var(--border-radius-sm);
+    transition: background-color var(--transition-speed) var(--transition-timing),
+                color var(--transition-speed) var(--transition-timing);
+    font-size: var(--font-size-base);
+}
+
+.admin-nav a svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    opacity: 0.8;
+}
+
+.admin-nav a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--primary-white);
+    text-decoration: none;
+}
+
+.admin-nav a.active {
+    background-color: var(--primary-red);
+    color: var(--primary-white);
+    font-weight: 600;
+}
+.admin-nav a.active svg {
+    opacity: 1;
+}
+
+.admin-nav .logout-link {
+    margin-top: auto; /* Push to bottom */
+}
+
+
+.admin-main-content {
+    flex-grow: 1;
+    padding: var(--spacing-lg);
+    background-color: var(--neutral-light);
+    overflow-y: auto; /* Allow content scrolling */
+    height: 100vh; /* Ensure it takes full viewport height */
+}
+
+.admin-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--neutral-lighter);
+}
+
+.admin-page-title {
+    margin-bottom: 0; /* Remove default margin */
+    font-size: var(--font-size-xl);
+}
+
+/* Responsive Admin Layout (Basic Example: Hide Sidebar) */
+@media screen and (max-width: 992px) {
+    .admin-sidebar {
+        /* Example: Could be hidden and toggled with a button */
+        /* position: fixed; */
+        /* transform: translateX(-100%); */
+        /* transition: transform 0.3s ease; */
+        width: 70px; /* Collapse to icon width */
+        padding: var(--spacing-md) var(--spacing-sm);
+        align-items: center;
+    }
+    .admin-sidebar.open {
+        /* transform: translateX(0); */
+    }
+
+    .admin-logo img {
+        max-height: 35px;
+    }
+
+    .admin-nav a span {
+        display: none; /* Hide text */
+    }
+     .admin-nav a {
+        justify-content: center; /* Center icon */
+        padding: var(--spacing-md) var(--spacing-sm);
+     }
+      .admin-nav a svg {
+         width: 24px;
+         height: 24px;
+         margin-right: 0;
+      }
+
+     /* Need a toggle button */
+     .admin-sidebar-toggle {
+         /* Styles for a menu button */
+         display: block; /* Show toggle */
+         position: absolute;
+         top: 15px;
+         left: var(--admin-sidebar-width); /* Position next to sidebar */
+         z-index: 1100;
+         /* ... */
+     }
+
+    .admin-main-content {
+        /* Adjust padding/margin if sidebar is fixed */
+        /* margin-left: 0; */
+        padding: var(--spacing-md);
+    }
+     .admin-page-title {
+         font-size: var(--font-size-lg);
+     }
+}
+
+/* If not collapsing, ensure content area is adjusted */
+@media screen and (min-width: 993px) {
+    body.admin-page {
+       /* No changes needed if sidebar is always visible */
+    }
+}

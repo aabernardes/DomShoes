@@ -1,0 +1,311 @@
+
+        /* Container principal do layout (área do formulário passo a passo + resumo) */
+        .checkout-container {
+            display: grid;
+            /* Em telas maiores (acima de 992px): Formulário/Passos (2 partes) na esquerda, Resumo (1 parte) na direita */
+            grid-template-columns: 2fr 1fr;
+            gap: var(--spacing-xl); /* Espaço entre as colunas */
+            margin-top: var(--spacing-lg); /* Espaço abaixo do título principal */
+            margin-bottom: var(--spacing-xl);
+            max-width: 100%;
+            max-height: 60%;
+            /* O fundo branco da área principal será definido nos passos individuais */
+        }
+
+        /* Área que contém os indicadores de passo e os passos do formulário */
+        /* Esta área ocupa a primeira coluna no grid em telas maiores */
+        .checkout-form-area {
+            /* No layout grid, este elemento já se posiciona na primeira coluna */
+            /* Adicionar padding interno ou fundo se necessário */
+        }
+
+        /* Indicadores de Passo */
+        /* Lista ordenada que visualmente representa as "abas" */
+        .step-indicators {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 1px solid var(--site-background); /* Separador visual */
+            list-style: none; /* Remove marcadores de lista padrão */
+            padding-left: 0;
+            counter-reset: step; /* Inicia um contador CSS para os números dos passos */
+        }
+         /* Cada item da lista (li) representa um indicador de passo */
+         .step-indicator {
+             flex-grow: 1; /* Faz os indicadores ocuparem espaço igual na linha */
+             text-align: center;
+             font-weight: bold;
+             color: var(--neutral-medium); /* Cor padrão do texto (cinza) */
+             position: relative; /* Para posicionar pseudo-elementos se necessário */
+             font-size: var(--font-size-sm); /* Tamanho de fonte menor para texto do indicador */
+         }
+          /* Pseudo-elemento ::before para criar o círculo com o número ou checkmark */
+           .step-indicator::before {
+               content: counter(step); /* Mostra o valor do contador CSS */
+               counter-increment: step; /* Incrementa o contador para cada li */
+               display: block; /* Faz o círculo quebrar linha acima do texto do indicador */
+               width: 30px; /* Tamanho do círculo */
+               height: 30px;
+               line-height: 30px; /* Centraliza o texto/número verticalmente no círculo */
+               border-radius: 50%; /* Torna o pseudo-elemento redondo */
+               background-color: var(--neutral-light); /* Fundo cinza claro para o círculo padrão */
+               color: var(--neutral-dark); /* Cor escura para o número padrão */
+               margin: 0 auto var(--spacing-xs); /* Centraliza o círculo horizontalmente e adiciona margem abaixo */
+               border: 2px solid var(--neutral-medium); /* Borda cinza média para o círculo */
+               font-size: var(--font-size-base); /* Tamanho da fonte do número dentro do círculo */
+           }
+            /* Estilo para o passo ativo (Vermelho da Paleta para destaque) */
+            .step-indicator.active {
+                color: var(--primary-red); /* Cor Vermelho para o texto do indicador ativo */
+            }
+            .step-indicator.active::before {
+                background-color: var(--primary-red); /* Fundo Vermelho para o círculo ativo */
+                color: var(--primary-white); /* Cor Branca para o número no círculo ativo */
+                border-color: var(--primary-red); /* Borda Vermelha para o círculo ativo */
+            }
+            /* Estilo para passos completos (Verde Sucesso) */
+            .step-indicator.completed {
+                color: var(--success-green); /* Cor Verde para o texto de indicadores completos */
+            }
+            .step-indicator.completed::before {
+                background-color: var(--success-green); /* Fundo Verde para o círculo completo */
+                color: var(--primary-white);
+                border-color: var(--success-green);
+                content: '✓'; /* Altera o conteúdo do pseudo-elemento para um checkmark */
+                font-size: var(--font-size-lg); /* Tamanho maior para o checkmark */
+            }
+
+        /* Contêiner que envolve todos os passos individuais do formulário */
+        /* Usado principalmente para gerenciar a exibição de um passo por vez via JavaScript */
+        .checkout-steps-container {
+             position: relative; /* Pode ser útil se usar posicionamento absoluto para transições suaves entre passos */
+             /* Se não usar transições com position: absolute, este container não precisa de estilos complexos além de margens/padding */
+        }
+
+        /* Passo individual do formulário (Cada seção como Informações, Endereço, etc.) */
+        .checkout-step {
+            /* Inicialmente oculto por padrão, será mostrado por JS adicionando a classe 'active' */
+            display: none;
+            background-color: var(--primary-white); /* Fundo BRANCO #FFFFFF para cada passo */
+            padding: var(--spacing-lg); /* Espaço interno */
+            border-radius: var(--border-radius-md); /* Cantos arredondados */
+            box-shadow: var(--box-shadow-light); /* Sombra sutil para destacar o bloco */
+            /* Opcional: Adicionar transição para fade/slide entre passos */
+            /* opacity: 0; */
+            /* transition: opacity 0.3s ease-in-out; */
+            /* position: absolute; top: 0; left: 0; width: 100%; */ /* Se usar posicionamento absoluto */
+        }
+         /* Torna o passo ativo visível (controlado por JS adicionando esta classe) */
+         .checkout-step.active {
+             display: block;
+             /* opacity: 1; */ /* Para transição de fade */
+             /* position: static; */ /* Para transição de position */
+         }
+
+         /* Título de cada passo (H2 dentro do .checkout-step) */
+         .checkout-step h2 {
+             font-size: var(--font-size-xl);
+             margin-bottom: var(--spacing-lg);
+             padding-bottom: var(--spacing-md);
+             border-bottom: 1px solid var(--site-background); /* Separador sutil */
+             color: var(--neutral-dark); /* Cor de texto escura */
+         }
+
+         /* Área de conteúdo dentro de cada passo (campos do formulário, texto, etc.) */
+         .step-content {
+             margin-bottom: var(--spacing-lg); /* Espaço abaixo do conteúdo antes da área de navegação */
+         }
+
+         /* Área de navegação dos passos (Botões Voltar/Próximo) */
+         /* Esta área fica dentro de CADA .checkout-step */
+         .step-navigation {
+             margin-top: var(--spacing-xl); /* Espaço acima dos botões */
+             display: flex;
+             justify-content: space-between; /* Espaça os botões "Voltar" e "Próximo" */
+             gap: var(--spacing-md); /* Espaço entre os botões */
+         }
+          .step-navigation .btn { /* Estilos de botões (btn, btn-primary, btn-outline) já definidos em button.css */ }
+
+
+         /* Seção do Resumo do Pedido */
+         /* Esta área ocupa a segunda coluna no grid em telas maiores */
+          .order-summary-section {
+            /* Fundo usando branco gelo #EEEEEE */
+             background-color: var(--site-background);
+             padding: var(--spacing-lg);
+             border-radius: var(--border-radius-md);
+             /* Estilo sticky para manter visível ao scrollar em telas maiores */
+              position: sticky;
+              top: calc(var(--header-height) + var(--spacing-md)); /* Posiciona abaixo do cabeçalho fixo + um pouco de margem */
+              /* Removido max-height e overflow-y para permitir que o conteúdo determine a altura e a rolagem principal da página ocorra */
+              /* max-height: calc(100vh - var(--header-height) - var(--spacing-md) * 2); */
+              /* overflow-y: auto; */
+              box-shadow: var(--box-shadow-light); /* Sombra sutil */
+          }
+           /* Título do resumo */
+           .order-summary-section h4 {
+               font-size: var(--font-size-lg);
+               margin-top: 0;
+               margin-bottom: var(--spacing-md);
+               padding-bottom: var(--spacing-sm);
+               border-bottom: 1px solid var(--neutral-light); /* Borda cinza clara */
+               color: var(--neutral-dark); /* Cor de texto escura */
+           }
+            /* Estilos para os itens listados no resumo (preenchido por JS) */
+            .order-summary-items {
+                 list-style: none;
+                 padding: 0;
+                 margin-bottom: var(--spacing-md);
+                 border-bottom: 1px solid var(--neutral-light); /* Separador antes do total */
+                 padding-bottom: var(--spacing-md);
+            }
+             .order-summary-item {
+                 display: flex;
+                 justify-content: space-between;
+                 font-size: var(--font-size-sm);
+                 color: var(--neutral-dark);
+                 margin-bottom: var(--spacing-xs);
+             }
+              .order-summary-item strong { /* Destaque para nomes de itens */ }
+            /* Estilos para o total no resumo */
+            .order-summary-total {
+                 display: flex;
+                 justify-content: space-between;
+                 font-size: var(--font-size-base);
+                 font-weight: bold;
+                 /* Cor para o total - VERDE LIMA (#7CE168) */
+                 color: var(--payment-green);
+                 margin-top: var(--spacing-md);
+            }
+
+            /* Área de botões/ações na coluna do resumo (contém o botão Confirmar Pedido) */
+             .order-summary-actions {
+                 margin-top: var(--spacing-md);
+                 /* Alinhamento do botão (geralmente ocupar a largura total ou centralizado) */
+             }
+              .order-summary-actions .btn {
+                  /* btn-block e estilos de tamanho já definidos em button.css */
+              }
+
+           /* Grid layout para campos de formulário (endereço e detalhes de pagamento) */
+           /* Estas classes são usadas DENTRO dos passos (.checkout-step) */
+           .address-grid, .payment-method-details-grid {
+               display: grid;
+               grid-template-columns: 1fr 1fr; /* Duas colunas */
+               gap: var(--spacing-md); /* Espaço entre campos */
+           }
+           /* Faz um campo ocupar as duas colunas dentro da grid */
+            .form-group.full-width {
+               grid-column: 1 / -1;
+           }
+
+           /* Estilos para a seleção da forma de pagamento */
+           .payment-method-options {
+               margin-bottom: var(--spacing-lg);
+           }
+            .payment-method-options .form-check { /* Estilo para radio buttons/checkboxes */
+                margin-bottom: var(--spacing-sm);
+            }
+             .payment-method-options .form-check input[type="radio"] { /* Estilo específico para o input radio */
+                 margin-right: var(--spacing-xs);
+                 /* Estilização customizada de radio buttons pode ser adicionada aqui */
+             }
+              .payment-method-options .form-check-label {
+                  /* Estilo para o texto do label do radio button */
+                  color: var(--neutral-dark);
+              }
+
+
+           /* Contêineres para detalhes específicos da forma de pagamento (controlados por JS) */
+           /* Inicialmente ocultos, mostrados por JS quando a forma de pagamento é selecionada */
+           .payment-method-details {
+               margin-top: var(--spacing-md);
+               padding-top: var(--spacing-md);
+               border-top: 1px solid var(--site-background); /* Separador */
+               display: none; /* Inicialmente oculto por padrão no HTML */
+           }
+            /* Classe adicionada por JS para mostrar o contêiner ativo */
+            .payment-method-details.active {
+                display: block; /* Mostra o contêiner ativo */
+            }
+
+           /* Conteúdo específico do Pix e Boleto (placeholder e futuros elementos gerados por JS) */
+           .pix-qr-code-area, .boleto-info-area {
+               text-align: center;
+               margin-top: var(--spacing-md);
+               padding: var(--spacing-md);
+               background-color: var(--site-background); /* Fundo sutil (branco gelo) */
+               border-radius: var(--border-radius-sm);
+               color: var(--neutral-dark); /* Cor do texto */
+           }
+
+
+           /* Media Query para Responsividade (Tablet e Mobile) */
+           @media screen and (max-width: 992px) {
+               .checkout-container {
+                   grid-template-columns: 1fr; /* Empilha formulário/passos e resumo em 1 coluna */
+                   gap: var(--spacing-lg); /* Ajusta o gap */
+               }
+                /* O resumo do pedido perde o sticky e limite de altura em telas menores */
+                .order-summary-section {
+                    position: static;
+                    max-height: none;
+                    margin-top: var(--spacing-lg); /* Garante espaço quando empilhado abaixo do formulário */
+                }
+                 /* Ajustes para os indicadores de passo empilhados em telas menores */
+                 .step-indicators {
+                     flex-direction: column; /* Empilha indicadores */
+                     align-items: flex-start; /* Alinha à esquerda */
+                 }
+                 .step-indicator {
+                     text-align: left; /* Alinha texto à esquerda */
+                     margin-bottom: var(--spacing-sm); /* Espaço entre indicadores */
+                 }
+                 /* Ajusta o posicionamento do número/checkmark no indicador empilhado */
+                 .step-indicator::before {
+                     margin: 0 var(--spacing-sm) 0 0; /* Adiciona margem à direita */
+                     display: inline-block; /* Faz o círculo/checkmark ficar inline com o texto */
+                     vertical-align: middle; /* Alinha verticalmente com o texto */
+                     flex-shrink: 0; /* Evita que o círculo diminua */
+                 }
+                 /* Remover a borda inferior em mobile nos indicadores se empilhados */
+                  .step-indicators {
+                      border-bottom: none;
+                  }
+                  .step-indicator {
+                       padding-bottom: var(--spacing-sm); /* Adiciona um pequeno padding inferior */
+                       border-bottom: 1px solid var(--site-background); /* Adiciona borda a cada item da lista */
+                  }
+                   .step-indicator:last-child {
+                       border-bottom: none; /* Remove borda do último item */
+                   }
+
+
+           }
+            /* Media Query para Mobile */
+            @media screen and (max-width: 768px) {
+                 /* Campos de grid (endereço, pagamento) empilham em 1 coluna */
+                 .address-grid, .payment-method-details-grid {
+                     grid-template-columns: 1fr;
+                 }
+                 /* Ajusta padding dos passos e resumo em telas menores */
+                 .checkout-step { padding: var(--spacing-md); }
+                 .order-summary-section { padding: var(--spacing-md); }
+                 /* Botões de navegação dos passos empilham */
+                 .step-navigation {
+                      flex-direction: column;
+                      gap: var(--spacing-sm);
+                 }
+                  .step-navigation .btn {
+                      width: 100%; /* Botões de navegação largura total */
+                  }
+                  /* Título do passo ajusta o tamanho */
+                  .checkout-step h2 {
+                      font-size: var(--font-size-xl);
+                  }
+                   /* Título do resumo ajusta o tamanho */
+                   .order-summary-section h4 {
+                       font-size: var(--font-size-xl); /* Pode querer manter o tamanho igual ao do passo */
+                   }
+            }

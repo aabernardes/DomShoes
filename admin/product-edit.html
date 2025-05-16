@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Produto - Admin DomShoes</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/components/button.css">
+    <link rel="stylesheet" href="../assets/css/components/form.css">
+    <link rel="stylesheet" href="../assets/css/pages/admin/layout.css">
+     <style>
+        .image-preview-container { margin-top: var(--spacing-md); }
+        .image-preview-container img { max-height: 150px; width: auto; display: block; border: 1px solid var(--neutral-light); border-radius: var(--border-radius-sm); margin-top: var(--spacing-sm); }
+     </style>
+</head>
+<body class="admin-page">
+    <aside class="admin-sidebar">
+        <div class="admin-logo">
+            <img src="../assets/images/logo/logo.png" alt="DomShoes Logo">
+        </div>
+        <nav class="admin-nav">
+             <ul>
+                <li><a href="dashboard.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grid-1x2-fill" viewBox="0 0 16 16">...</svg> <span>Dashboard</span></a></li>
+                <li><a href="products.html" class="active"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">...</svg> <span>Produtos</span></a></li>
+                <li><a href="sales.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-receipt" viewBox="0 0 16 16">...</svg> <span>Vendas</span></a></li>
+                <li><a href="customization.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-palette-fill" viewBox="0 0 16 16">...</svg> <span>Customização</span></a></li>
+                <li class="logout-link"><a href="index.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">...</svg> <span>Sair</span></a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="admin-main-content">
+        <header class="admin-page-header">
+            <h1 id="product-edit-title" class="admin-page-title">Adicionar Novo Produto</h1>
+            <a href="products.html" class="btn btn-secondary">Voltar para Lista</a>
+        </header>
+
+        <form id="product-form">
+             <!-- Hidden field for product ID during edit -->
+            <input type="hidden" id="productId" name="productId">
+
+            <div class="form-group">
+                <label for="productName" class="form-label">Nome do Produto *</label>
+                <input type="text" id="productName" name="productName" class="form-control" required>
+                <div class="invalid-feedback"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="productCategory" class="form-label">Categoria *</label>
+                <select id="productCategory" name="productCategory" class="form-control" required>
+                    <option value="">Carregando...</option>
+                    <!-- Categories loaded by JS -->
+                </select>
+                 <div class="invalid-feedback"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="productPrice" class="form-label">Preço (R$) *</label>
+                <input type="text" id="productPrice" name="productPrice" class="form-control" placeholder="Ex: 349,90" required inputmode="decimal">
+                 <div class="invalid-feedback"></div>
+            </div>
+
+             <div class="form-group">
+                <label for="productDescription" class="form-label">Descrição *</label>
+                <textarea id="productDescription" name="productDescription" class="form-control" rows="4" required></textarea>
+                 <div class="invalid-feedback"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="productImage" class="form-label">Imagem do Produto</label>
+                <input type="file" id="productImage" name="productImage" class="form-control" accept="image/png, image/jpeg, image/webp">
+                <div class="image-preview-container">
+                    <img id="productImagePreview" src="#" alt="Prévia da Imagem" style="display: none;">
+                </div>
+                <small class="form-text text-muted">Deixe em branco para manter a imagem atual (se editando).</small>
+            </div>
+
+             <div class="form-check">
+                <input type="checkbox" id="productFeatured" name="productFeatured" class="form-check-input">
+                <label for="productFeatured" class="form-check-label">Marcar como Destaque?</label>
+            </div>
+
+
+            <div class="form-actions">
+                <a href="products.html" class="btn btn-outline">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+            </div>
+        </form>
+
+    </main>
+
+    <script src="../assets/js/modules/utils.js" type="module"></script>
+    <script src="../assets/js/modules/api.js" type="module"></script>
+    <script src="../assets/js/modules/validation.js" type="module"></script>
+    <script src="../assets/js/pages/admin/product-edit.js" type="module"></script>
+</body>
+</html>

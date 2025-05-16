@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Admin DomShoes</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/components/button.css">
+    <link rel="stylesheet" href="../assets/css/components/card.css">
+    <link rel="stylesheet" href="../assets/css/pages/admin/layout.css">
+    <link rel="stylesheet" href="../assets/css/pages/admin/dashboard.css">
+</head>
+<body class="admin-page">
+    <aside class="admin-sidebar">
+        <div class="admin-logo">
+            <img src="../assets/images/logo/logo.png" alt="DomShoes Logo">
+        </div>
+        <nav class="admin-nav">
+            <ul>
+                <li><a href="dashboard.html" class="active"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grid-1x2-fill" viewBox="0 0 16 16"><path d="M0 1a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm9 0a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1zm0 9a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1z"/></svg> <span>Dashboard</span></a></li>
+                <li><a href="products.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16"><path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2l-2.218-.887zm3.564 1.426L5.596 5 8 5.961 14.154 3.5l-2.404-.961zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464z"/></svg> <span>Produtos</span></a></li>
+                <li><a href="sales.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-receipt" viewBox="0 0 16 16"><path d="M1.92.506a.5.5 0 0 1 .434.14L3 1.293l.646-.647a.5.5 0 0 1 .708 0L5 1.293l.646-.647a.5.5 0 0 1 .708 0L7 1.293l.646-.647a.5.5 0 0 1 .708 0L9 1.293l.646-.647a.5.5 0 0 1 .708 0L11 1.293l.646-.647a.5.5 0 0 1 .708 0L13 1.293l.646-.647a.5.5 0 0 1 .638.057l.05.056a.5.5 0 0 1 .057.638l-.056.05-.647.646L13 2l.646.647a.5.5 0 0 1 0 .708L13 4l.646.647a.5.5 0 0 1 0 .708L13 6l.646.647a.5.5 0 0 1 0 .708L13 8l.646.647a.5.5 0 0 1 0 .708L13 10l.646.647a.5.5 0 0 1 0 .708L13 12l.646.647a.5.5 0 0 1 0 .708L13 14l.646.647a.5.5 0 0 1 .057.638l-.055.056a.5.5 0 0 1-.639.057l-.05-.05L13 14.707l-.646.647a.5.5 0 0 1-.708 0L11 14.707l-.646.647a.5.5 0 0 1-.708 0L9 14.707l-.646.647a.5.5 0 0 1-.708 0L7 14.707l-.646.647a.5.5 0 0 1-.708 0L5 14.707l-.646.647a.5.5 0 0 1-.708 0L3 14.707l-.646.647a.5.5 0 0 1-.708 0L1.015 14.2a.5.5 0 0 1-.14-.434V1.015a.5.5 0 0 1 .05-.234l.056-.05zM4 3.5a.5.5 0 0 0 0 1h8a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h8a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1z"/></svg> <span>Vendas</span></a></li>
+                <li><a href="customization.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-palette-fill" viewBox="0 0 16 16"><path d="M12.433 10.07C14.133 10.585 16 11.15 16 8a8 8 0 1 0-15.433 4.07C1.71 10.585 3.58 11.15 5.28 11.15c1.706 0 3.57-.565 5.28-1.08zm-.01-8.005C11.932 1.71 10.568 1 8 1c-2.568 0-3.933.71-4.423 1.065C4.21 2.575 5.79 3.5 8 3.5c2.21 0 3.79-.925 4.423-1.435z"/></svg> <span>Customização</span></a></li>
+                <li class="logout-link"><a href="index.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"/><path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z"/></svg> <span>Sair</span></a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="admin-main-content">
+        <header class="admin-page-header">
+            <h1 class="admin-page-title">Dashboard</h1>
+             <!-- Optional: Add quick actions or user info here -->
+        </header>
+
+        <section class="dashboard-stats" id="dashboard-stats-container">
+            <!-- Stat cards will be loaded here by JS -->
+             <p>Carregando estatísticas...</p>
+        </section>
+
+        <section class="dashboard-section">
+             <div class="dashboard-section-header">
+                 <h2 class="dashboard-section-title">Atividade Recente</h2>
+                 <!-- Optional: Link to full activity log -->
+             </div>
+             <ul class="recent-activity-list" id="recent-activity-list">
+                <li>Carregando atividades...</li>
+             </ul>
+        </section>
+
+         <section class="dashboard-section">
+             <div class="dashboard-section-header">
+                 <h2 class="dashboard-section-title">Produtos Populares</h2>
+                  <a href="products.html" class="btn btn-sm btn-link">Ver Todos</a>
+             </div>
+              <ul class="popular-products-list" id="popular-products-list">
+                 <li>Carregando produtos...</li>
+              </ul>
+        </section>
+
+         <section class="dashboard-section">
+             <div class="dashboard-section-header">
+                 <h2 class="dashboard-section-title">Visão Geral de Vendas (Exemplo)</h2>
+             </div>
+              <div class="chart-placeholder">
+                  [ Placeholder para Gráfico de Vendas ]
+              </div>
+        </section>
+
+    </main>
+
+    <script src="../assets/js/modules/utils.js" type="module"></script>
+    <script src="../assets/js/modules/api.js" type="module"></script>
+    <script src="../assets/js/pages/admin/dashboard.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+   .profile-container {
+    max-width: 700px;
+    margin: var(--spacing-lg) auto;
+    background-color: var(--primary-white); /* Fundo BRANCO #FFFFFF */
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--box-shadow-light);
+}
+ .profile-header {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     margin-bottom: var(--spacing-lg);
+     padding-bottom: var(--spacing-md);
+     /* Borda sutil usando branco gelo #EEEEEE */
+     border-bottom: 1px solid var(--site-background);
+ }
+  .profile-header h1 {
+      margin-bottom: 0;
+  }
+  /* Estilos para as seções de Endereços, Pagamento, Pedidos dentro do profile-container */
+  .profile-section {
+      margin-top: var(--spacing-xl); /* Espaço acima de cada nova seção */
+      padding-top: var(--spacing-md); /* Espaço interno acima */
+      border-top: 1px solid var(--site-background); /* Separador entre seções */
+  }
+  .profile-section:first-of-type {
+      margin-top: var(--spacing-lg); /* Menos espaço antes da primeira seção após o header */
+      border-top: none; /* Sem borda superior para a primeira seção */
+      padding-top: 0;
+  }
+  .profile-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--spacing-md);
+  }
+   .profile-section-header h2 {
+       margin-bottom: 0; /* Remove margem inferior padrão do h2 */
+       font-size: var(--font-size-lg); /* Tamanho de fonte para títulos de seção */
+       color: var(--neutral-dark); /* Cor de texto escura */
+   }
+
+  .profile-actions {
+      margin-top: var(--spacing-lg);
+      display: flex;
+      gap: var(--spacing-md);
+      justify-content: flex-end; /* Alinha botões à direita */
+  }
+  .profile-actions .btn {
+      flex-grow: 0; /* Não faz os botões crescerem */
+  }
+
+   /* Estilos para itens listados (endereços, formas de pagamento) */
+   .profile-list {
+       list-style: none;
+       padding: 0;
+       margin: 0;
+   }
+   .profile-list-item {
+       padding: var(--spacing-md) 0;
+       border-bottom: 1px solid var(--site-background); /* Separador entre itens */
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       gap: var(--spacing-md);
+   }
+   .profile-list-item:last-child {
+       border-bottom: none; /* Remove borda do último item */
+   }
+   .profile-list-item-info {
+       flex-grow: 1; /* Permite que as informações cresçam */
+       color: var(--neutral-dark); /* Cor de texto escura */
+   }
+    .profile-list-item-info small {
+        display: block; /* Quebra a linha para detalhes adicionais */
+        color: var(--neutral-medium); /* Cor de texto secundária */
+        margin-top: var(--spacing-xs);
+    }
+   .profile-list-item-actions {
+       flex-shrink: 0; /* Previne que os botões diminuam */
+       display: flex;
+       gap: var(--spacing-sm);
+   }
+
+
+    /* Toast message styles - Mantidos por enquanto */
+   .toast-message { /* Basic toast styles */ }
+    /* Cores dos toasts usando variáveis da paleta ou neutras */
+    .toast-message.success { background-color: var(--success-green); }
+    .toast-message.error { background-color: var(--error-red); }
+    .toast-message.info { background-color: var(--accent-blue); } /* Mantém o azul para info */
+
+    /* Media Query para telas menores */
+    @media screen and (max-width: 768px) {
+        .profile-container {
+            padding: var(--spacing-md);
+            margin: var(--spacing-md) auto;
+        }
+         .profile-header {
+             flex-direction: column;
+             align-items: flex-start;
+             gap: var(--spacing-sm);
+             margin-bottom: var(--spacing-md);
+         }
+         .profile-header h1 {
+             font-size: var(--font-size-xl);
+         }
+         .profile-section {
+             margin-top: var(--spacing-lg);
+             padding-top: var(--spacing-md);
+         }
+         .profile-section:first-of-type {
+             margin-top: var(--spacing-md);
+         }
+         .profile-section-header {
+             flex-direction: column;
+             align-items: flex-start;
+             gap: var(--spacing-sm);
+             margin-bottom: var(--spacing-md);
+         }
+          .profile-section-header h2 {
+              font-size: var(--font-size-base);
+          }
+         .profile-list-item {
+             flex-direction: column;
+             align-items: flex-start;
+             gap: var(--spacing-sm);
+         }
+          .profile-list-item-actions {
+              width: 100%; /* Botões de ação em coluna */
+              justify-content: flex-start; /* Alinha à esquerda */
+          }
+           .profile-actions {
+               flex-direction: column;
+               gap: var(--spacing-sm);
+               align-items: stretch; /* Botões de ação em coluna */
+           }
+            .profile-actions .btn {
+               width: 100%; /* Botões de ação em coluna */
+               flex-grow: 1;
+            }
+    }
+
+    /* O CSS para .profile-container, .profile-header, .profile-section, .profile-list, etc.
+   que você já tinha, continua válido e estilizará o conteúdo DENTRO dos painéis das abas. */
+
+/* --- Novos Estilos para Abas --- */
+
+/* Estilos para o contêiner que envolve as abas e os painéis no perfil */
+.tabbed-profile-content {
+    margin-top: var(--spacing-lg); /* Espaço entre o header do perfil e as abas */
+    /* border-top: 1px solid var(--site-background); /* Opcional: linha divisória */
+    padding-top: var(--spacing-lg); /* Espaço acima da barra de abas */
+}
+
+/* Estilos para a barra de botões das abas */
+/* Use um seletor mais específico (.profile-container .tabs) para garantir que se aplique apenas aqui */
+.profile-container .tabs {
+    display: flex; /* Organiza os botões horizontalmente */
+    flex-wrap: wrap; /* Permite que as abas quebrem linha em telas menores */
+    border-bottom: 2px solid var(--site-background); /* Linha separadora abaixo das abas */
+    margin-bottom: var(--spacing-md); /* Espaço entre as abas e o conteúdo */
+    gap: var(--spacing-sm); /* Espaço entre os botões das abas */
+    margin-top: 0; /* Remove qualquer margem superior herdada */
+    padding-top: 0; /* Remove qualquer padding superior herdado */
+}
+
+/* Estilos base para os botões das abas */
+/* Use um seletor mais específico (.profile-container .tab-button) */
+.profile-container .tab-button {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: none;
+    background-color: transparent; /* Fundo transparente por padrão */
+    cursor: pointer;
+    font-size: var(--font-size-base); /* Pode ajustar o tamanho da fonte se quiser */
+    color: var(--neutral-medium); /* Cor de texto para aba inativa */
+    border-bottom: 2px solid transparent; /* Borda inferior transparente para aba inativa */
+    transition: color 0.3s ease, border-color 0.3s ease; /* Transição suave */
+    font-family: inherit; /* Garante a fonte correta */
+    text-align: center;
+    white-space: nowrap; /* Evita quebra de linha no texto do botão */
+}
+
+/* Estilos para o botão da aba quando não está ativo, mas com hover */
+.profile-container .tab-button:hover:not(.active) {
+    color: var(--primary-color); /* Destaca a cor no hover */
+}
+
+/* Estilos para o botão da aba ativa */
+.profile-container .tab-button.active {
+    color: var(--primary-color); /* Cor de texto para aba ativa */
+    border-bottom-color: var(--primary-color); /* Destaca a aba ativa */
+    font-weight: var(--font-weight-bold); /* Opcional: deixa a aba ativa mais grossa */
+}
+
+/* Estilos para o contêiner dos painéis de conteúdo (os painéis individuais ficam dentro dele) */
+.tab-panels {
+    /* Cuidado para não duplicar padding/margin com as .profile-section dentro */
+    padding-top: var(--spacing-md); /* Adiciona espaço entre a barra de abas e o conteúdo do painel */
+}
+
+/* Estilos para cada painel de conteúdo */
+.tab-panel {
+    display: none; /* Esconde todos os painéis por padrão */
+    /* As classes .profile-section dentro dos painéis manterão seus estilos,
+       mas alguns precisam ser ajustados quando a section é também um tab-panel */
+}
+
+/* Estilos para o painel de conteúdo ativo (visível) */
+.tab-panel.active {
+    display: block; /* Mostra apenas o painel com a classe 'active' */
+}
+
+/* --- Ajustes para as Seções originais quando usadas como Painéis --- */
+/* As regras originais para .profile-section podem precisar de pequenos ajustes
+   agora que elas estão dentro de .tab-panels > .tab-panel. */
+
+/* A seção DENTRO de um painel NÃO precisa de margem/borda/padding superior
+   que era usada para separá-la das outras seções quando estavam scrolando */
+.tab-panel.profile-section { /* Quando a section é também um tab-panel */
+    margin-top: 0; /* Remove a margem superior */
+    padding-top: 0; /* Remove o padding superior */
+    border-top: none; /* Remove a borda superior */
+}
+
+/* Garante que o header da seção dentro do painel não tenha margem superior extra */
+.tab-panel .profile-section-header {
+    margin-top: 0;
+    /* A borda inferior do .profile-section-header deve continuar funcionando */
+}
+
+
+/* --- Ajustes de Responsividade --- */
+
+@media screen and (max-width: 768px) {
+    /* Ajustes para o contêiner principal do perfil em telas menores */
+    /* Você já tinha isso no seu CSS, mantido aqui para referência: */
+    .profile-container {
+        padding: var(--spacing-md);
+        margin: var(--spacing-md) auto;
+    }
+
+    /* Ajustes para a barra de abas em telas menores */
+    .profile-container .tabs {
+        justify-content: center; /* Centraliza os botões em telas menores */
+        gap: var(--spacing-xs); /* Reduz o espaço entre botões */
+        margin-bottom: var(--spacing-md); /* Mantém espaço entre tabs e painel */
+    }
+
+    /* Ajustes para os botões das abas em telas menores */
+    .profile-container .tab-button {
+        padding: var(--spacing-sm); /* Reduz padding nos botões */
+        font-size: var(--font-size-sm); /* Reduz tamanho da fonte */
+    }
+
+     /* Ajustes para o contêiner do conteúdo tabulado em telas menores */
+     .tabbed-profile-content {
+          padding-top: var(--spacing-md); /* Reduz espaço no topo do conteúdo tabulado */
+     }
+
+     /* Ajustes para o contêiner dos painéis em telas menores */
+     .tab-panels {
+         padding-top: var(--spacing-sm); /* Reduz espaço acima do painel em mobile */
+     }
+
+    /* As regras de responsividade originais para .profile-header, .profile-list-item,
+       .profile-actions, etc., que você já tinha, devem continuar funcionando
+       para os elementos dentro dos painéis das abas. */
+    /* Exemplo (do seu CSS original): */
+    /*
+    .profile-header { flex-direction: column; align-items: flex-start; gap: var(--spacing-sm); }
+    .profile-list-item { flex-direction: column; align-items: flex-start; gap: var(--spacing-sm); }
+    .profile-list-item-actions { width: 100%; justify-content: flex-start; }
+    .profile-actions { flex-direction: column; gap: var(--spacing-sm); align-items: stretch; }
+    .profile-actions .btn { width: 100%; flex-grow: 1; }
+    */
+}

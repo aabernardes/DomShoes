@@ -1,0 +1,143 @@
+/* === Admin Dashboard Styles === */
+
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.stat-card {
+    background-color: var(--primary-white);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--box-shadow-light);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    border-left: 5px solid var(--accent-blue); /* Accent color */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--box-shadow-medium);
+}
+
+
+.stat-card .stat-icon {
+    font-size: 2rem; /* Adjust icon size */
+    color: var(--accent-blue); /* Match border */
+    background-color: rgba(52, 152, 219, 0.1); /* Light background for icon */
+    padding: var(--spacing-sm);
+    border-radius: 50%;
+    width: 50px; /* Fixed size circle */
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+.stat-card .stat-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+
+.stat-card .stat-info {
+    flex-grow: 1;
+}
+
+.stat-card .stat-value {
+    display: block;
+    font-size: var(--font-size-xl);
+    font-weight: bold;
+    color: var(--neutral-dark);
+    margin-bottom: var(--spacing-xs);
+}
+
+.stat-card .stat-label {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--neutral-medium);
+    text-transform: uppercase;
+}
+
+/* Variations for different stats */
+.stat-card.sales { border-color: var(--success-green); }
+.stat-card.sales .stat-icon { color: var(--success-green); background-color: rgba(76, 175, 80, 0.1); }
+
+.stat-card.orders { border-color: var(--primary-red); }
+.stat-card.orders .stat-icon { color: var(--primary-red); background-color: rgba(229, 57, 53, 0.1); }
+
+.stat-card.products { border-color: #ff9800; } /* Orange example */
+.stat-card.products .stat-icon { color: #ff9800; background-color: rgba(255, 152, 0, 0.1); }
+
+
+/* Dashboard Sections */
+.dashboard-section {
+    background-color: var(--primary-white);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--box-shadow-light);
+    margin-bottom: var(--spacing-xl);
+}
+
+.dashboard-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--neutral-lighter);
+}
+
+.dashboard-section-title {
+    font-size: var(--font-size-lg);
+    margin-bottom: 0;
+}
+
+/* Placeholder for charts */
+.chart-placeholder {
+    height: 300px;
+    background-color: var(--neutral-lighter);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--neutral-medium);
+    border-radius: var(--border-radius-sm);
+    font-style: italic;
+}
+
+/* Recent Activity List */
+.recent-activity-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.recent-activity-list li {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px dashed var(--neutral-lighter);
+    font-size: var(--font-size-sm);
+}
+.recent-activity-list li:last-child {
+    border-bottom: none;
+}
+
+.recent-activity-list .activity-icon {
+    color: var(--neutral-medium);
+}
+.recent-activity-list .activity-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+.recent-activity-list .activity-time {
+    margin-left: auto; /* Push time to the right */
+    color: var(--neutral-medium);
+    font-size: 0.8em;
+    white-space: nowrap;
+}

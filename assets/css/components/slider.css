@@ -1,0 +1,168 @@
+/* === Hero Slider Styles === */
+.hero-slider {
+  position: relative;
+  width: 100%;
+  max-width: var(--container-max-width); /* Optional: Limit slider width */
+  margin: var(--spacing-lg) auto; /* Center and add space */
+  overflow: hidden; /* Hide inactive slides */
+  border-radius: var(--border-radius-lg); /* Rounded corners */
+  aspect-ratio: 12 / 2; /* Maintain aspect ratio, adjust as needed */
+  background-color: var(--neutral-lighter); /* Placeholder background */
+}
+
+.hero-slider-track {
+  display: flex;
+  width: 100%; /* Track width is 100% of the container */
+  height: 100%;
+  transition: transform var(--transition-speed) ease-in-out; /* Slide transition */
+}
+
+.hero-banner {
+  flex: 0 0 100%; /* Each slide takes full width, no shrinking/growing */
+  width: 100%;
+  height: 100%;
+  position: relative; /* For positioning content */
+  display: flex;
+  align-items: center; /* Center content vertically */
+  justify-content: center; /* Center content horizontally */
+  background-size: cover;
+  background-position: center;
+  color: var(--primary-white); /* Default text color for banners */
+  text-align: center;
+}
+
+.hero-banner img.banner-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.hero-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* Dark overlay for text contrast */
+    z-index: 2;
+}
+
+
+.hero-content {
+  position: relative; /* Above image/overlay */
+  z-index: 3;
+  padding: var(--spacing-lg);
+  max-width: 700px; /* Limit content width */
+}
+
+.hero-content h2 {
+  font-size: var(--font-size-xxl);
+  margin-bottom: var(--spacing-sm);
+  color: var(--primary-white);
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+.hero-content p {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-md);
+  color: var(--primary-white);
+   text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Slider Controls (Arrows) */
+.slider-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.4);
+  color: var(--primary-white);
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-xs); /* Smaller padding */
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color var(--transition-speed) var(--transition-timing);
+  opacity: 0.7;
+}
+
+.slider-control:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+   opacity: 1;
+}
+
+.slider-control.prev {
+  left: var(--spacing-md);
+}
+
+.slider-control.next {
+  right: var(--spacing-md);
+}
+
+.slider-control svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+
+/* Slider Indicators (Dots) */
+.slider-indicators {
+  position: absolute;
+  bottom: var(--spacing-md);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--spacing-sm);
+  z-index: 10;
+}
+
+.slider-indicators .indicator {
+  width: 10px;
+  height: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px solid rgba(0,0,0,0.2);
+  transition: background-color var(--transition-speed) var(--transition-timing), transform var(--transition-speed) var(--transition-timing);
+}
+
+.slider-indicators .indicator:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.slider-indicators .indicator.active {
+  background-color: var(--primary-white);
+  transform: scale(1.2);
+}
+
+@media screen and (max-width: 768px) {
+  .hero-slider {
+    aspect-ratio: 16 / 8; /* Taller aspect ratio on mobile */
+    margin: var(--spacing-md) auto;
+  }
+  .hero-content h2 {
+    font-size: var(--font-size-xl);
+  }
+  .hero-content p {
+    font-size: var(--font-size-base);
+  }
+   .slider-control {
+      padding: var(--spacing-xs);
+   }
+   .slider-control svg {
+     width: 20px;
+     height: 20px;
+   }
+   .slider-indicators {
+       bottom: var(--spacing-sm);
+   }
+   .slider-indicators .indicator {
+       width: 8px;
+       height: 8px;
+   }
+}

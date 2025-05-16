@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendas - Admin DomShoes</title>
+     <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/components/button.css">
+    <link rel="stylesheet" href="../assets/css/components/table.css">
+    <link rel="stylesheet" href="../assets/css/pages/admin/layout.css">
+     <style>
+        /* Styles for status badge are expected in admin/sales.js or global admin CSS */
+     </style>
+</head>
+<body class="admin-page">
+    <aside class="admin-sidebar">
+        <div class="admin-logo">
+            <img src="../assets/images/logo/logo.png" alt="DomShoes Logo">
+        </div>
+        <nav class="admin-nav">
+             <ul>
+                <li><a href="dashboard.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grid-1x2-fill" viewBox="0 0 16 16">...</svg> <span>Dashboard</span></a></li>
+                <li><a href="products.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">...</svg> <span>Produtos</span></a></li>
+                <li><a href="sales.html" class="active"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-receipt" viewBox="0 0 16 16">...</svg> <span>Vendas</span></a></li>
+                <li><a href="customization.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-palette-fill" viewBox="0 0 16 16">...</svg> <span>Customização</span></a></li>
+                <li class="logout-link"><a href="index.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">...</svg> <span>Sair</span></a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="admin-main-content">
+        <header class="admin-page-header">
+            <h1 class="admin-page-title">Lista de Vendas</h1>
+             <!-- Optional: Add filters or search here -->
+        </header>
+
+        <div class="table-container">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Pedido ID</th>
+                        <th>Data</th>
+                        <th>Cliente</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="sales-table-body">
+                    <!-- Sales rows will be loaded here by JS -->
+                    <tr><td colspan="6" class="text-center">Carregando vendas...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <script src="../assets/js/modules/utils.js" type="module"></script>
+    <script src="../assets/js/modules/api.js" type="module"></script>
+    <script src="../assets/js/pages/admin/sales.js" type="module"></script>
+</body>
+</html>

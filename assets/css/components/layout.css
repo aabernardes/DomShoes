@@ -1,0 +1,261 @@
+/* === Header Styles === */
+#main-header {
+  position: fixed; /* Keep header fixed at the top */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+  background-color: var(--primary-red); /* Usa o branco principal #FFFFFF conforme a paleta */
+  border-bottom: 1px solid var(--site-background); /* Borda sutil usando o branco gelo #EEEEEE */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  z-index: 1000; /* Ensure header is above other content */
+  display: flex;
+  align-items: center;
+}
+
+#main-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.logo-container {
+  flex-shrink: 0;
+}
+
+.logo-container img {
+  height: 40px; /* Adjust logo height */
+  width: auto;
+}
+
+.search-bar {
+  flex-grow: 1;
+  max-width: 400px; /* Limit search bar width */
+  position: relative;
+}
+
+.search-bar input[type="search"] {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  padding-right: 40px; /* Space for search icon */
+  border: 1px solid var(--neutral-light); /* Mantém borda clara, não especificado na paleta */
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-sm);
+}
+.search-bar input[type="search"]:focus {
+  border-color: var(--accent-blue); /* Mantém destaque azul no foco, não especificado na paleta */
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2); /* Mantém sombra de foco azul */
+}
+
+.search-bar button {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: var(--spacing-sm);
+  cursor: pointer;
+  color: var(--neutral-medium); /* Mantém cor cinza para ícone padrão, não especificado na paleta */
+}
+.search-bar button svg {
+  width: 18px;
+  height: 18px;
+}
+.search-bar button:hover {
+  color: var(--accent-blue); /* Mantém destaque azul no hover, não especificado na paleta */
+}
+
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.cart-icon-container {
+  position: relative;
+}
+
+.cart-icon-container .cart-count {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  background-color: var(--primary-white); /* Usa o novo vermelho primário #5A0909 (Botões) */
+  color: var(--primary-red); /* Usa o branco principal #FFFFFF (Notificação) */
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 10px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+  padding-bottom: 1px; /* Fine-tuning alignment */
+}
+
+/* Hide count if zero or not present */
+.cart-icon-container .cart-count:empty,
+.cart-icon-container .cart-count.zero {
+  display: none;
+}
+
+
+/* Secondary Navigation */
+#secondary-nav {
+  background-color: var(--site-background); /* Usa o branco gelo #EEEEEE (Fundo do site) */
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--neutral-light); /* Mantém borda clara, não especificado na paleta */
+}
+
+#secondary-nav .container {
+  display: flex;
+  justify-content: center; /* Center links */
+  align-items: center;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  gap: var(--spacing-md);
+}
+
+#secondary-nav a {
+  color: var(--neutral-dark); /* Mantém texto escuro, não especificado na paleta */
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: var(--font-size-sm);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  transition: background-color var(--transition-speed) var(--transition-timing), color var(--transition-speed) var(--transition-timing);
+}
+
+#secondary-nav a:hover,
+#secondary-nav a.active {
+  color: var(--primary-red); /* Usa o novo vermelho primário #5A0909 (Abas de seleção podem ser consideradas botões/elementos de navegação) */
+  /* Ajusta o fundo sutil para usar o novo vermelho #5A0909 com 10% de opacidade */
+  background-color: rgba(90, 9, 9, 0.1);
+  text-decoration: none;
+}
+
+
+/* === Footer Styles === */
+.main-footer {
+  background-color: var(--primary-red); /* Usa o novo vermelho primário #5A0909 (Rodapé) */
+  color: var(--primary-white); /* Usa o branco principal #FFFFFF para o texto padrão do rodapé (Rodapé - texto) */
+  padding: var(--spacing-xl) 0 var(--spacing-md);
+  margin-top: var(--spacing-xxl); /* Space above footer */
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.footer-section h4 {
+  color: var(--primary-white); /* Mantém branco para títulos (Rodapé - texto) */
+  font-size: var(--font-size-base); /* Smaller footer headings */
+  margin-bottom: var(--spacing-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: var(--spacing-xs);
+}
+
+.footer-section ul li a {
+  color: var(--primary-white); /* Usa branco principal para links (Rodapé - texto) */
+  font-size: var(--font-size-sm);
+  transition: color var(--transition-speed) var(--transition-timing);
+}
+
+.footer-section ul li a:hover {
+  color: var(--primary-red); /* Usa o novo vermelho primário #5A0909 no hover (Rodapé - links hover) */
+  text-decoration: none;
+}
+
+.footer-section p {
+    font-size: var(--font-size-sm);
+    color: var(--primary-white); /* Usa branco principal para parágrafos (Rodapé - texto) */
+    margin-bottom: var(--spacing-xs);
+}
+
+.social-links a {
+  display: inline-block;
+  margin-right: var(--spacing-sm);
+  color: var(--primary-white); /* Usa branco principal para ícones sociais (Rodapé - texto/ícones) */
+  font-size: 1.5rem; /* Larger icons */
+}
+.social-links a:hover {
+    color: var(--accent-blue); /* Mantém destaque azul no hover, não especificado na paleta */
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--primary-white); /* Usa branco principal para a borda de separação (Rodapé - texto) */
+  font-size: var(--font-size-sm);
+  color: var(--primary-white); /* Usa branco principal para o texto do copyright (Rodapé - texto) */
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+  #main-header .container {
+    gap: var(--spacing-sm);
+    flex-wrap: wrap; /* Allow header items to wrap */
+    justify-content: space-between; /* Keep logo left, actions right */
+  }
+
+  .logo-container {
+    order: 1; /* Logo first */
+    height: 30px;
+  }
+   .logo-container img {
+     height: 30px;
+   }
+
+  .header-actions {
+    order: 2; /* Actions second (right) */
+    gap: var(--spacing-sm);
+  }
+
+  .search-bar {
+    order: 3; /* Search bar last, takes full width below */
+    width: 100%;
+    max-width: none;
+    margin-top: var(--spacing-sm);
+    padding: 0 var(--spacing-sm); /* Add padding when wrapped */
+  }
+
+    /* Adjust body padding to account for wrapped header */
+    body.header-wrapped {
+      padding-top: calc(var(--header-height) + 50px); /* Approximate height of wrapped search bar */
+    }
+
+    #secondary-nav .container {
+        gap: var(--spacing-sm);
+        justify-content: flex-start; /* Align left on mobile */
+        overflow-x: auto; /* Allow horizontal scroll if needed */
+        padding-bottom: var(--spacing-xs); /* Add padding for scrollbar */
+        scrollbar-width: thin;
+    }
+    #secondary-nav a {
+      flex-shrink: 0; /* Prevent links from shrinking */
+    }
+
+  .footer-content {
+    grid-template-columns: 1fr; /* Stack footer sections */
+    text-align: center;
+  }
+
+  .social-links {
+      margin-top: var(--spacing-sm);
+  }
+}

@@ -1,0 +1,231 @@
+/* === Coupon Banner === */
+.coupon-banner {
+  /* Paleta: Propagandas usam BRANCO (#FFFFFF) */
+  background-color: var(--primary-white); /* Usando o branco principal */
+  /* Texto deve contrastar com o fundo branco */
+  color: var(--neutral-dark); /* Usando a cor de texto escura padrão */
+  padding: var(--spacing-md) var(--spacing-lg);
+  text-align: center;
+  border-radius: var(--border-radius-md);
+  margin: var(--spacing-lg) 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  /* Adicionar uma borda sutil ou sombra para destacar o banner branco no fundo branco gelo */
+  border: 1px solid var(--site-background);
+  box-shadow: var(--box-shadow-light);
+  aspect-ratio: 14/1;
+}
+
+.coupon-banner p {
+  margin-bottom: 0;
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  /* A cor do parágrafo já está definida no contêiner (.coupon-banner) */
+}
+
+.coupon-banner .btn {
+  /* Paleta: Botões usam VERMELHO (#5A0909) */
+  background-color: var(--primary-white); /* Fundo do botão VERMELHO */
+  color: var(--primary-red); /* Texto do botão BRANCO para contraste */
+  font-weight: bold;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--border-radius-md); /* Adicionado para consistência */
+  transition: background-color var(--transition-speed) var(--transition-timing); /* Adicionado transição */
+}
+
+.coupon-banner .btn:hover {
+  /* Um vermelho um pouco mais escuro ou uma variação para o hover */
+   background-color: #4a0707;
+   color: var(--primary-white); /* Exemplo: Um pouco mais escuro que #5A0909 */
+   /* background-color: var(--primary-red); pode adicionar um efeito de opacidade ou box-shadow */
+}
+
+.coupon-banner .coupon-code {
+  /* Ajustar cor para contrastar com o fundo BRANCO do banner */
+  background-color: rgba(0, 0, 0, 0.05); /* Um fundo cinza muito sutil */
+  color: var(--neutral-dark); /* Cor do texto do código */
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  font-family: monospace;
+  font-weight: bold;
+  display: inline-block;
+  margin-left: var(--spacing-sm);
+  border: 1px dashed var(--neutral-medium); /* Borda tracejada para destacar */
+}
+
+
+/* === Floating Buttons === */
+.floating-buttons {
+  position: fixed;
+  bottom: var(--spacing-lg);
+  right: var(--spacing-lg);
+  z-index: 999; /* Below header/modal but above most content */
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.floating-buttons .btn-float {
+  /* Paleta: Botões usam VERMELHO (#5A0909) */
+  background-color: var(--primary-red); /* Fundo VERMELHO */
+  color: var(--primary-white); /* Ícone BRANCO para contraste */
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: var(--box-shadow-medium);
+  transition: background-color var(--transition-speed) var(--transition-timing),
+              transform var(--transition-speed) var(--transition-timing);
+  text-decoration: none; /* Remove underline from links */
+}
+
+.floating-buttons .btn-float:hover {
+  /* Um vermelho um pouco mais escuro para o hover */
+  transform: scale(1.1);
+  color: var(--primary-white); /* Garante que a cor do ícone permaneça BRANCA */
+}
+
+.floating-buttons .btn-float svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Specific button styles */
+/* Mantendo as cores padrão do WhatsApp por ser um branding específico */
+.btn-whatsapp:hover {
+    background-color: #25D366; /* Darker WhatsApp Green */
+}
+
+#header a {
+  background-color: var(--primary-white);
+}
+
+#back-to-top {
+    opacity: 0; /* Hidden by default */
+    background-color: var(--primary-red); /* Exemplo: Um pouco mais escuro que #5A0909 */
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity var(--transition-speed) var(--transition-timing),
+                visibility 0s linear var(--transition-speed),
+                transform var(--transition-speed) var(--transition-timing);
+    /* As cores vêm de .btn-float */
+}
+
+
+#back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition-delay: 0s;
+}
+
+@media screen and (max-width: 768px) {
+    .floating-buttons {
+        bottom: var(--spacing-md);
+        right: var(--spacing-md);
+    }
+    .floating-buttons .btn-float {
+        width: 45px;
+        height: 45px;
+    }
+    .floating-buttons .btn-float svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* === Section Styles === */
+.section {
+    padding: var(--spacing-xl) 0;
+}
+.section-title {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--font-size-xl);
+    color: var(--neutral-dark); /* Mantém cor de texto escura padrão */
+    position: relative;
+    padding-bottom: var(--spacing-sm);
+}
+/* Optional underline for section title */
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    /* Paleta: Pode usar o VERMELHO para destaque */
+    background-color: var(--primary-red); /* Usando o vermelho primário */
+}
+
+/* === Alert / Message Styles === */
+.alert {
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    border: 1px solid transparent;
+    border-radius: var(--border-radius-sm);
+    position: relative;
+}
+
+/* Ajustando as cores dos alertas para usar variáveis da paleta quando possível */
+.alert-success {
+    /* Paleta: VERDE (LIMA) para Área de pagamento #7CE168.
+       Podemos usar um verde genérico de sucesso se houver necessidade,
+       ou adaptar #7CE168. Vamos manter a variável success-green se já existir */
+    color: #155724; /* Cor de texto original escura */
+    background-color: #d4edda; /* Cor de fundo original clara */
+    border-color: #c3e6cb; /* Cor da borda original */
+    /* Alternativa usando var(--success-green):
+    color: darken(var(--success-green), 40%); // Exemplo se usar pré-processador
+    background-color: lighten(var(--success-green), 30%);
+    border-color: var(--success-green);
+    Ou manter as hex originais se funcionarem bem com a paleta geral.
+    Por enquanto, manter as hex originais para não introduzir tons fora da paleta sem necessidade. */
+}
+
+.alert-danger {
+    /* Paleta: VERMELHO #5A0909. Há também --error-red.
+       Vamos usar --error-red se for para mensagens de erro genéricas,
+       ou ajustar as hex originais. Manter hex original por enquanto. */
+    color: #721c24; /* Cor de texto original escura */
+    background-color: #f8d7da; /* Cor de fundo original clara */
+    border-color: #f5c6cb; /* Cor da borda original */
+     /* Alternativa usando var(--error-red):
+    color: darken(var(--error-red), 20%);
+    background-color: lighten(var(--error-red), 30%);
+    border-color: var(--error-red); */
+}
+
+.alert-warning {
+    /* Não há cor específica na paleta. Manter cores originais */
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+
+.alert-info {
+    /* Não há cor específica na paleta. Manter cores originais */
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
+
+.alert .close-alert {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 1.2rem;
+    color: inherit; /* Herda a cor do texto do alerta (que já ajustamos/mantivemos) */
+    opacity: 0.7;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.alert .close-alert:hover {
+    opacity: 1;
+}

@@ -1,0 +1,109 @@
+/* === Card Styles === */
+.card {
+  background-color: var(--primary-white); /* Cor de fundo BRANCO #FFFFFF */
+  /* Borda sutil usando o branco gelo #EEEEEE */
+  border: 1px solid var(--site-background);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--box-shadow-light);
+  overflow: hidden; /* Ensure content respects border radius */
+  transition: box-shadow var(--transition-speed) var(--transition-timing);
+  display: flex; /* Default to flex column */
+  flex-direction: column;
+  height: 100%; /* Allow cards to fill grid height */
+}
+
+.card:hover {
+  box-shadow: var(--box-shadow-medium);
+}
+
+.card-image {
+  width: 100%;
+  height: 200px; /* Fixed height for consistency */
+  object-fit: cover; /* Crop image nicely */
+  /* Borda inferior sutil usando o branco gelo #EEEEEE */
+  border-bottom: 1px solid var(--site-background); /* Separator */
+}
+
+/* Allow overriding height */
+.card-image.auto-height {
+    height: auto;
+}
+
+.card-content {
+  padding: var(--spacing-md);
+  flex-grow: 1; /* Allow content to expand */
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin-bottom: var(--spacing-sm);
+  color: var(--neutral-dark); /* Mantém cor de texto escura para títulos */
+}
+
+.card-text {
+  font-size: var(--font-size-base);
+  color: var(--neutral-medium); /* Mantém cor de texto secundária */
+  margin-bottom: var(--spacing-md);
+  flex-grow: 1; /* Push actions to the bottom */
+}
+
+.card-actions {
+  margin-top: auto; /* Pushes actions to the bottom if content doesn't fill */
+  padding-top: var(--spacing-sm); /* Space above actions */
+  display: flex;
+  justify-content: flex-end; /* Align actions to the right by default */
+  gap: var(--spacing-sm);
+}
+
+/* Example Product Card Specific Styles */
+.product-item .card-image {
+    cursor: pointer; /* Indicate clickable image */
+}
+
+.product-item .card-title {
+    font-size: 1rem; /* Slightly smaller for product grids */
+    min-height: 2.6em; /* Reserve space for 2 lines */
+    margin-bottom: var(--spacing-xs);
+}
+
+.product-item .product-price {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--primary-red); /* Cor VERMELHO #5A0909 para o preço */
+    margin-bottom: var(--spacing-sm);
+}
+
+.product-item .card-actions {
+    justify-content: space-between; /* Space out price/button */
+    align-items: center;
+}
+
+/* Grid layout for cards */
+.card-grid {
+  display: grid;
+  gap: var(--spacing-lg);
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid */
+}
+
+@media screen and (max-width: 768px) {
+  .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Smaller cards on mobile */
+    gap: var(--spacing-md);
+  }
+  .product-item .card-image {
+    height: 150px;
+  }
+    .product-item .card-title {
+    font-size: var(--font-size-sm);
+    min-height: 2.4em; /* Adjust for smaller font */
+  }
+    .product-item .product-price {
+    font-size: var(--font-size-base);
+  }
+    .card-content {
+      padding: var(--spacing-sm);
+    }
+}

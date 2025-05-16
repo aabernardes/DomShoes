@@ -1,0 +1,102 @@
+/* === Table Styles === */
+.table-container {
+  overflow-x: auto; /* Allow horizontal scrolling on small screens */
+  width: 100%;
+  margin-bottom: var(--spacing-lg);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse; /* Remove space between borders */
+  background-color: var(--primary-white);
+  font-size: var(--font-size-sm); /* Smaller text for tables */
+  text-align: left;
+}
+
+/* Table Header */
+.table thead th {
+  background-color: var(--neutral-lighter);
+  color: var(--neutral-dark);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-bottom: 2px solid var(--neutral-medium); /* Thicker bottom border for header */
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  vertical-align: bottom; /* Align text to bottom */
+}
+
+/* Table Body */
+.table tbody td {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-bottom: 1px solid var(--neutral-lighter); /* Light border between rows */
+  color: var(--neutral-dark);
+  vertical-align: middle; /* Center content vertically */
+}
+
+.table tbody tr {
+  transition: background-color var(--transition-speed) var(--transition-timing);
+}
+
+/* Hover effect */
+.table-hover tbody tr:hover {
+  background-color: var(--neutral-lighter);
+}
+
+/* Striped rows */
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.02); /* Very light gray */
+}
+.table-striped.table-hover tbody tr:nth-of-type(odd):hover {
+  background-color: rgba(0, 0, 0, 0.07); /* Slightly darker hover for striped */
+}
+
+/* Bordered table */
+.table-bordered {
+  border: 1px solid var(--neutral-light);
+}
+
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid var(--neutral-light);
+}
+
+/* Compact table */
+.table-sm th,
+.table-sm td {
+  padding: var(--spacing-xs) var(--spacing-sm);
+}
+
+/* Table Actions */
+.table-actions {
+  white-space: nowrap; /* Prevent actions from wrapping */
+  text-align: right; /* Align actions to the right */
+}
+
+.table-actions .btn {
+  margin-left: var(--spacing-xs);
+}
+.table-actions .btn-icon {
+    padding: var(--spacing-xs); /* Smaller padding for icons */
+}
+
+@media screen and (max-width: 768px) {
+  .table thead {
+    /* Hide table header on mobile, rely on data-* attributes if needed */
+    /* display: none; */ /* Or keep it, depends on preference */
+  }
+  .table, .table thead, .table tbody, .table th, .table td, .table tr {
+    /* display: block; */ /* Could stack cells, but often breaks layout badly */
+  }
+
+  /* Better approach for mobile: ensure horizontal scrolling works well */
+  .table-container {
+    border: 1px solid var(--neutral-light);
+    border-radius: var(--border-radius-sm);
+  }
+
+  .table th,
+  .table td {
+    white-space: nowrap; /* Prevent content wrapping */
+    padding: var(--spacing-sm); /* Slightly reduce padding */
+  }
+}

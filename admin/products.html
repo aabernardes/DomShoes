@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Produtos - Admin DomShoes</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/components/button.css">
+    <link rel="stylesheet" href="../assets/css/components/table.css">
+    <link rel="stylesheet" href="../assets/css/pages/admin/layout.css">
+     <style>
+        /* Small adjustments if needed */
+        .product-image-thumb { height: 40px; width: 40px; object-fit: cover; border-radius: 4px; vertical-align: middle;}
+        .table td, .table th { vertical-align: middle; }
+     </style>
+</head>
+<body class="admin-page">
+    <aside class="admin-sidebar">
+        <div class="admin-logo">
+            <img src="../assets/images/logo/logo.png" alt="DomShoes Logo">
+        </div>
+        <nav class="admin-nav">
+            <ul>
+                <li><a href="dashboard.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grid-1x2-fill" viewBox="0 0 16 16">...</svg> <span>Dashboard</span></a></li>
+                <li><a href="products.html" class="active"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">...</svg> <span>Produtos</span></a></li>
+                <li><a href="sales.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-receipt" viewBox="0 0 16 16">...</svg> <span>Vendas</span></a></li>
+                <li><a href="customization.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-palette-fill" viewBox="0 0 16 16">...</svg> <span>Customização</span></a></li>
+                <li class="logout-link"><a href="index.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">...</svg> <span>Sair</span></a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="admin-main-content">
+        <header class="admin-page-header">
+            <h1 class="admin-page-title">Gerenciar Produtos</h1>
+            <a href="product-edit.html" class="btn btn-primary">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg icon" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/></svg>
+                Adicionar Novo Produto
+            </a>
+        </header>
+
+        <div class="table-container">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Imagem</th>
+                        <th>Nome</th>
+                        <th>Categoria</th>
+                        <th>Preço</th>
+                        <th>Destaque</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="product-table-body">
+                    <!-- Product rows will be loaded here by JS -->
+                     <tr><td colspan="6" class="text-center">Carregando produtos...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <script src="../assets/js/modules/utils.js" type="module"></script>
+    <script src="../assets/js/modules/api.js" type="module"></script>
+    <script src="../assets/js/pages/admin/products.js" type="module"></script>
+     <!-- Add spinner CSS if using it in JS -->
+    <style>.spinner-border-sm { width: 1rem; height: 1rem; border-width: .2em; display: inline-block; vertical-align: text-bottom; border: .25em solid currentColor; border-right-color: transparent; border-radius: 50%; -webkit-animation: .75s linear infinite spinner-border; animation: .75s linear infinite spinner-border; } @keyframes spinner-border { to { transform: rotate(360deg); } }</style>
+</body>
+</html>
