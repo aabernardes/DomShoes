@@ -28,12 +28,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>
                 </button>
             </form>
-            <div class="header-actions">
-                <a class="login-button" href="../store/login.html">Login</a>
-                <a href="cart.html" class="btn btn-ghost btn-icon cart-icon-container" aria-label="Carrinho de compras">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16"><path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.402H3.62l.958 4.596A.5.5 0 0 0 5 14h8a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4H12.44l.8-4zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/></svg>
-                     <span class="cart-count" id="cart-count"></span> </a>
-            </div>
+             <div class="header-actions">\n               <!-- Header actions like login, cart, etc will be inserted here by JS -->\n           </div>
         </div>
     </header>
 
@@ -116,9 +111,24 @@
             <section class="product-reviews-section section">
                  <h2 class="section-title">Avaliações dos Clientes</h2>
                  <div class="reviews-content">
-                     <div class="review-form">
-                         <h3>Deixe sua avaliação</h3>
-                         <p>Formulário de avaliação...</p>
+                    <div id="product-reviews">
+                        <div id="review-form" style="display: none;">
+                            <h3>Deixe sua avaliação</h3>
+                            <form id="submit-review-form">
+                                <div class="form-group">
+                                    <label for="review-rating">Nota (1 a 5):</label>
+                                    <select id="review-rating" class="form-control" required>
+                                        <option value="5">5 - Excelente</option>
+                                        <option value="4">4 - Muito Bom</option>
+                                        <option value="3">3 - Bom</option>
+                                        <option value="2">2 - Regular</option>
+                                        <option value="1">1 - Ruim</option>
+                                    </select>
+                                </div>
+                                <div class="form-group"><label for="review-comment">Comentário:</label><textarea id="review-comment" class="form-control" rows="4" required></textarea></div>
+                                <button type="submit" class="btn btn-primary">Enviar Avaliação</button>
+                            </form>
+                        </div>
                      </div>
                      <div class="review-list" id="product-reviews-list">
                          <p>Carregando avaliações...</p>
@@ -196,5 +206,5 @@
     <script src="../assets/js/modules/utils.js" type="module"></script>
     <script src="../assets/js/modules/cart.js" type="module"></script>
     <script src="../assets/js/modules/api.js" type="module"></script> <script src="../assets/js/pages/store/floating-buttons.js" type="module"></script>
-    <script src="../assets/js/pages/store/product-detail.js" type="module"></script> <script src="../assets/js/global.js" type="module"></script> </body>
+    <script src="../assets/js/pages/store/product-detail.js" type="module"></script> <script src="../assets/js/../global.js" type="module"></script> </body>
 </html>

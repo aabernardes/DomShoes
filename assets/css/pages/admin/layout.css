@@ -100,6 +100,33 @@ body.admin-page {
     font-size: var(--font-size-xl);
 }
 
+/* Order Status Badges */
+.order-status {
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: var(--border-radius-sm);
+    color: var(--primary-white);
+    font-size: 0.85em;
+    white-space: nowrap;
+}
+
+.status-entregue {
+    background-color: var(--success-green);
+}
+
+.status-enviado {
+    background-color: var(--accent-blue);
+}
+
+.status-processando {
+    background-color: #ff9800;
+}
+
+.status-cancelado {
+    background-color: var(--error-red);
+}
+
+
 /* Responsive Admin Layout (Basic Example: Hide Sidebar) */
 @media screen and (max-width: 992px) {
     .admin-sidebar {

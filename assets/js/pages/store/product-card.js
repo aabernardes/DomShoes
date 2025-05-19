@@ -1,18 +1,21 @@
 
-import { createElement, formatCurrency, showToast } from '../../modules/utils.js'; // Added showToast
-import { addToCart } from '../../modules/cart.js'; // Optional: Add "quick add" button
-
+import { formatCurrency, showToast, on, createElement } from '../../modules/utils.js'; 
+import { addToCart } from '../../modules/cart.js';
 /**
  * Creates and returns an HTML element representing a product card.
  * @param {object} product - The product data object ({ id, name, price, image, description }).
  * @returns {HTMLElement | null} The product card element (usually a div with class 'product-item') or null if data is invalid.
  */
-export function renderProductCard(product) {
+export function createProductCard(product) {
     // Basic validation
     if (!product || typeof product !== 'object' || !product.id || !product.name || product.price === undefined || !product.image) {
-        console.error("Invalid product data provided to renderProductCard:", product);
-        return null; // Return null or a placeholder error element
+        console.error("Invalid product data provided to createProductCard:", product);
+        const errorElement = createElement('div', { class: 'product-item error-placeholder' });
+        errorElement.appendChild(createElement('p', { class: 'error-message' }, 'Erro ao carregar produto'));
+        return errorElement; // Return a placeholder error element
+        
     }
+        console.log("createProductCard: Rendering product card for:", product);
 
     // console.log("Rendering product card for:", product.name);
 
@@ -45,31 +48,28 @@ export function renderProductCard(product) {
         text: 'Ver Detalhes'
     }));
 
-    // Optional: Quick Add to Cart button - Uncomment and test if needed
-    /*
+    // Quick Add to Cart button - Uncomment and test if needed
     const quickAddButton = createElement('button', {
         class: 'btn btn-sm btn-secondary btn-icon quick-add-button',
-        'data-product-id': product.id,
+        dataset: { productId: product.id },
         'aria-label': 'Adicionar ao carrinho'
+
+        
     });
     quickAddButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16"><path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z"/><path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/></svg>`;
 
-    quickAddButton.addEventListener('click', (e) => {
-        e.preventDefault(); // Prevent link navigation if button is inside <a> somehow
-        e.stopPropagation(); // Prevent triggering link navigation if card is wrapped in <a>
-        console.log("Quick Add clicked for product:", product.id);
+    on(quickAddButton,'click',(e) =>{
+        console.log(`quickAddButton: Adding ${product.name} to cart.`);
         try {
             addToCart(product, 1);
             // Optionally show feedback
-            showToast(`${product.name} adicionado ao carrinho!`, 'success');
+           showToast(`${product.name} adicionado ao carrinho!`, 'success');
         } catch (cartError) {
             console.error("Error adding to cart via quick add:", cartError);
-            showToast(`Erro ao adicionar ${product.name} ao carrinho.`, 'error');
+           showToast(`Erro ao adicionar ${product.name} ao carrinho.`, 'error');
         }
-
-    });
+    })
     cardActions.appendChild(quickAddButton);
-    */
 
     cardContent.appendChild(cardActions);
     cardInner.appendChild(cardContent);
@@ -77,3 +77,4 @@ export function renderProductCard(product) {
 
     return card;
 }
+

@@ -1,4 +1,4 @@
-import { qs, on, showToast, setCurrentUser } from '../../modules/utils.js';
+import { qs, on, showToast, setCurrentUser, getCurrentUser } from '../../modules/utils.js';
 import { validateForm, checkRequired, checkEmail, checkLength, checkPasswordsMatch } from '../../modules/validation.js';
 import { loginUser, registerUser } from '../../modules/api.js'; // Import simulated API calls
 
@@ -37,6 +37,7 @@ export function setupAuthForms() {
                     // API handles incorrect password case via reject currently
                 } catch (error) {
                      console.error("Login failed:", error);
+                    updateHeader();// Update the header with user info
                      showToast(error.message || "E-mail ou senha inválidos.", 'error');
                      submitButton.disabled = false;
                      submitButton.textContent = 'Entrar';
@@ -111,6 +112,43 @@ export function setupAuthForms() {
     }
 
      console.log("Authentication forms setup complete.");
+}
+
+/**
+ * Updates the header based on user login status.
+ * If a user is logged in, it displays a welcome message with the user's name and a logout button.
+ * If no user is logged in, it might display a login button or other default content.
+ */
+export function updateHeader() {
+    const user = getCurrentUser(); // Get user data from localStorage
+    const headerActions = qs('.header-actions'); // Or a more specific selector if needed
+
+    if (headerActions) {
+        headerActions.innerHTML = ''; // Clear previous content
+
+        if (user) {
+            // User is logged in
+            const welcomeMessage = document.createElement('span');
+            welcomeMessage.textContent = `Olá, ${user.name}!`;
+            headerActions.appendChild(welcomeMessage);
+
+            const logoutButton = document.createElement('button');
+            logoutButton.textContent = 'Sair';
+            logoutButton.classList.add('btn', 'btn-outline');
+
+            // Logout logic
+            on(logoutButton, 'click', () => {
+                 setCurrentUser(null); // Clear user data
+                updateHeader(); // Update the header again to show logged out state
+                 window.location.href = '/store/index.html'; // Redirect to home
+            });
+
+            headerActions.appendChild(logoutButton);
+        } else {
+            // User is logged out - add login button
+            headerActions.innerHTML = ` <button id="login-button" class="btn btn-outline">Entrar</button>`
+        }
+    }
 }
 
 

@@ -1,16 +1,16 @@
 
-import { qs, getUrlParameter, createElement } from '../../modules/utils.js';
-import { getProducts } from '../../modules/api.js';
-import { renderProductCard } from './product-card.js'; // Re-use product card rendering
+import { qs, getUrlParameter, createElement, showToast } from '../../modules/utils.js'; // Update path
+import { getProducts, getCategories } from '../../modules/api.js'; // Update path
+import { createProductCard } from './product-card.js'; // Re-use product card rendering
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     console.log("Category page JS loaded.");
     const categoryTitleElement = qs('#category-title');
-    const productGridElement = qs('#category-product-grid');
+    const productGrid = qs('#category-product-grid');
 
-    if (!categoryTitleElement || !productGridElement) {
+    if (!categoryTitleElement || !productGrid) {
         console.error("Category title (#category-title) or product grid (#category-product-grid) element not found.");
-        return;
+        return showToast('Erro: Elementos da página não encontrados.', 'error');
     }
 
     const categoryName = getUrlParameter('category');
@@ -18,63 +18,58 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(`Category Name: ${categoryName}, Search Term: ${searchTerm}`);
 
     let pageTitle = "Todos os Produtos";
-    let filters = {};
+    let filters = {}; // Filters will depend on category or search term
 
     if (categoryName) {
-        pageTitle = `Categoria: ${decodeURIComponent(categoryName)}`;
-        filters.category = categoryName;
+        try {
+            const categories = await getCategories();
+            if (categories.includes(decodeURIComponent(categoryName))) {
+                pageTitle = `Categoria: ${decodeURIComponent(categoryName)}`;
+                filters.category = decodeURIComponent(categoryName); // Ensure to decode the category name
+            } else {
+                pageTitle = `Categoria não encontrada`;
+                productGrid.innerHTML = `<p>Categoria "${decodeURIComponent(categoryName)}" não encontrada.</p>`;
+                showToast(`Erro: Categoria "${decodeURIComponent(categoryName)}" não encontrada.`, 'warning');
+            }
+        } catch (error) {
+            console.error("Error fetching categories:", error);
+            showToast('Erro ao carregar categorias.', 'error');
+            productGrid.innerHTML = '<p class="error-message">Erro ao carregar categorias. Tente novamente mais tarde.</p>';
+        }
     } else if (searchTerm) {
         pageTitle = `Resultados para: "${decodeURIComponent(searchTerm)}"`;
-        filters.search = searchTerm;
+        filters.search = decodeURIComponent(searchTerm); // Ensure to decode the search term
     }
     console.log("Setting page title to:", pageTitle);
     console.log("Applying filters:", filters);
 
     categoryTitleElement.textContent = pageTitle;
-    document.title = `DomShoes - ${pageTitle}`; // Update page title
+    document.title = `DomShoes - ${pageTitle}`;
 
-    loadCategoryProducts(productGridElement, filters);
+    loadCategoryProducts(productGrid, filters);
 });
 
-
-async function loadCategoryProducts(container, filters) {
-    console.log("loadCategoryProducts: Starting fetch with filters:", filters);
-    container.innerHTML = '<p>Carregando produtos...</p>'; // Loading state
+async function loadCategoryProducts(productGrid, filters) {
+    console.log("loadCategoryProducts: Starting fetch with filters:", filters, productGrid);
+    productGrid.innerHTML = '<p>Carregando produtos...</p>';
     try {
-        const products = await getProducts(filters); // Use simulated API with filters
-        console.log("loadCategoryProducts: Products received:", products);
-
-        container.innerHTML = ''; // Clear loading state
-
-        if (products && products.length > 0) {
-            console.log(`loadCategoryProducts: Rendering ${products.length} products.`);
+        const products = await getProducts(filters);
+        productGrid.innerHTML = '';
+        if (products.length > 0) {
             products.forEach(product => {
                 try {
-                    const productCardElement = renderProductCard(product);
-                    if (productCardElement) {
-                        container.appendChild(productCardElement);
-                    } else {
-                        console.warn("renderProductCard returned null for product:", product);
-                    }
+                    const productCard = createProductCard(product);
+                    productGrid.appendChild(productCard);
                 } catch (renderError) {
-                     console.error("Error rendering product card for:", product, renderError);
-                     // Optionally append an error placeholder for this specific card
-                     container.appendChild(createElement('div', {class: 'product-item error-placeholder'}, 'Erro ao renderizar produto'));
+                    console.error("Error rendering product card for:", product, renderError);
+                    productGrid.appendChild(createElement('div', { class: 'product-item error-placeholder' }, 'Erro ao renderizar produto'));
                 }
             });
         } else {
-             console.log("loadCategoryProducts: No products found for the given filters.");
-             let message = "Nenhum produto encontrado.";
-             if (filters.category) {
-                message = `Nenhum produto encontrado na categoria "${filters.category}".`;
-             } else if (filters.search) {
-                 message = `Nenhum produto encontrado para a busca "${filters.search}".`;
-             }
-             container.innerHTML = `<p>${message}</p>`;
+            productGrid.innerHTML = `<p>Nenhum produto encontrado.</p>`;
         }
     } catch (error) {
         console.error("loadCategoryProducts: Error fetching products:", error);
-        container.innerHTML = '<p class="error-message">Erro ao carregar produtos. Tente novamente mais tarde.</p>';
+        productGrid.innerHTML = '<p class="error-message">Erro ao carregar produtos. Tente novamente mais tarde.</p>';
     }
-     console.log("loadCategoryProducts: Finished.");
 }

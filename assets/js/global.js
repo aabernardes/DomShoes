@@ -1,22 +1,48 @@
 
-import { qs, on, getCurrentUser, setCurrentUser } from './modules/utils.js'; // Import necessary utils
+import { qs, on, getCurrentUser, setCurrentUser, createElement } from './modules/utils.js';
+import { updateHeader } from './pages/store/auth.js';
 import { getCartItemCount } from './modules/cart.js';
 import { setupLoginModal } from './pages/store/modal.js';
-import { setupFloatingButtons } from './pages/store/floating-buttons.js';
+import { setupFloatingButtons } from './pages/store/floating-buttons.js'; // Import necessary utils
 
 let isInitialized = false; // Flag to prevent double initialization
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     if (isInitialized) {
-        console.warn("Global JS already initialized. Skipping.");
+        console.warn('Global JS already initialized. Skipping.');
         return;
     }
     isInitialized = true;
     console.log("Global JS: DOMContentLoaded fired. Initializing...");
 
+    // --- Update Header ---
+    updateHeader();
+    
+    //---Add cart button----
+    console.log('Global JS: Adding cart button to header.');
+    const headerActions = qs('.header-actions');
+    if (headerActions) {
+        const cartLink = createElement('a', { href: '/store/cart.html', class: 'btn btn-icon btn-cart', 'aria-label': 'Ver carrinho' });
+        cartLink.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16"><path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 4 0 2 2 0 0 0-4 0m7 0a2 2 0 1 0 4 0 2 2 0 0 0-4 0"/><div id="cart-count" class="cart-count zero"></div></svg>`;
+
+        headerActions.appendChild(cartLink);
+    } else {
+        console.warn('Global JS: header actions not found');
+    }
+
     // --- Header Cart Count Update ---
-    console.log("Global JS: Setting up cart count update.");
-    const cartCountElement = qs('#cart-count');
+     console.log("Global JS: Setting up cart count update.");
+     const cartCountElement = qs('#cart-count');
+     
+
+
+
+
+
+
+
+    // --- Header Cart Count Update ---
+    
 
     const updateCartCount = () => {
         if (cartCountElement) {

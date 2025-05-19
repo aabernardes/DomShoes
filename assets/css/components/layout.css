@@ -69,6 +69,16 @@
 }
 
 
+.header-actions .btn-ghost {
+  color: var(--primary-white); /* Ícones brancos no header vermelho */
+}
+
+.header-actions .btn-ghost:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Leve destaque branco no hover */
+  color: var(--primary-white);
+}
+
+
 .header-actions {
   display: flex;
   align-items: center;

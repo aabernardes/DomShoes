@@ -1,0 +1,27 @@
+.customization-section {
+    background-color: var(--primary-white);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--box-shadow-light);
+    margin-bottom: var(--spacing-xl);
+}
+
+.customization-section h2 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--neutral-lighter);
+}
+
+.image-preview-container {
+    margin-top: var(--spacing-md);
+}
+
+.image-preview-container img {
+    max-height: 100px;
+    width: auto;
+    display: block;
+    border: 1px solid var(--neutral-light);
+    border-radius: var(--border-radius-sm);
+    margin-top: var(--spacing-sm);
+}

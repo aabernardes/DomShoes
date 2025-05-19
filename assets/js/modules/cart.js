@@ -1,98 +1,114 @@
 // === Cart Module (using localStorage) ===
 
+ 
 const CART_STORAGE_KEY = 'domShoesCart';
 
+// Helper function to check if a product object is valid
+const isValidProduct = (product) => {
+    return product && typeof product === 'object' &&
+        typeof product.id === 'number' && !isNaN(product.id) &&
+        typeof product.name === 'string' && product.name.trim() !== '' &&
+        typeof product.price === 'number' && !isNaN(product.price) &&
+        product.price >= 0 &&
+        typeof product.image === 'string' && product.image.trim() !== '';
+};
 /**
  * Retrieves the current cart items from localStorage.
- * @returns {Array<object>} Array of cart items [{ productId, name, price, image, quantity }].
+ * @returns {object} Cart object with { productId: { product details, quantity } }.
  */
-export const getCartItems = () => {
-    const cartJson = localStorage.getItem(CART_STORAGE_KEY);
-    try {
-        return cartJson ? JSON.parse(cartJson) : [];
-    } catch (e) {
-        console.error("Error parsing cart JSON from localStorage:", e);
-        return []; // Return empty array on error
-    }
+
+export const getCart = () => {
+    return getCartItems();
+};
+
+const getCartItems = () => {
+     console.log("getCartItems: Getting cart data...");
+     const cart = JSON.parse(localStorage.getItem(CART_STORAGE_KEY) || '{}');
+     console.log("getCartItems: Cart data:", cart);
+     return cart;
+
 };
 
 /**
- * Saves the entire cart array to localStorage.
- * @param {Array<object>} cartItems - The array of cart items to save.
+ * Saves the cart object to localStorage and dispatches events.
+ * @param {object} cartItems - The cart object to save.
+ * @param {string} eventType - The type of event to dispatch.
+ * @param {object} [detail] - Additional detail data for the event.
  */
-const saveCartItems = (cartItems) => {
+const saveCartItems = (cartItems, eventType, detail = {}) => {
     try {
         localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartItems));
-        // Dispatch a custom event to notify other parts of the app (like the header count)
-        window.dispatchEvent(new CustomEvent('cartUpdated'));
+
+        // Dispatch general cart updated event
+        window.dispatchEvent(new CustomEvent('cartUpdated', { detail: { ...detail, cart: cartItems } }));
+
+        // Dispatch specific event based on the action
+        if (eventType) {
+            window.dispatchEvent(new CustomEvent(eventType, { detail: { ...detail, cart: cartItems } }));
+        }
     } catch (e) {
         console.error("Error saving cart to localStorage:", e);
         // Optionally, notify the user if storage is full or unavailable
     }
 };
 
+
 /**
  * Adds a product to the cart or increments its quantity.
- * @param {object} product - The product object to add ({ id, name, price, image }).
+ * @param {object} product - The product object to add.
  * @param {number} [quantity=1] - The quantity to add.
  */
 export const addToCart = (product, quantity = 1) => {
-    if (!product || !product.id) {
-        console.error("Invalid product data provided to addToCart.");
+    console.log("addToCart: Adding to cart:", product, quantity);
+    if (!isValidProduct(product)) {
+        console.error("Invalid product data provided to addToCart:", product);
         return;
     }
     if (quantity <= 0) return; // Don't add zero or negative quantity
 
     const cartItems = getCartItems();
-    const existingItemIndex = cartItems.findIndex(item => item.productId === product.id);
-
-    if (existingItemIndex > -1) {
-        // Item exists, increment quantity
-        cartItems[existingItemIndex].quantity += quantity;
+    
+    if (cartItems[product.id]) {
+        cartItems[product.id].quantity += quantity;
     } else {
-        // Item does not exist, add new item
-        cartItems.push({
-            productId: product.id,
-            name: product.name,
-            price: product.price,
-            image: product.image,
-            quantity: quantity,
-        });
+        cartItems[product.id] = { ...product, quantity: quantity };
     }
-
-    saveCartItems(cartItems);
-    console.log(`Added ${quantity} of product ${product.id} to cart.`);
+    saveCartItems(cartItems, 'itemAdded', { productId: product.id, quantity });
+    console.log(`addToCart: Added ${quantity} of product ${product.id} to cart. New cart:`, cartItems);
 };
 
 /**
  * Updates the quantity of a specific item in the cart.
- * If quantity becomes 0 or less, the item is removed.
+ * Updates the quantity of a specific item in the cart.
+ * Updates the quantity of a specific item in the cart.
+ * @param {number | string} productId - The ID of the product to update.
+ * @param {number} newQuantity - The new quantity for the item.
+ * @param {number | string} productId - The ID of the product to update.
  * @param {number | string} productId - The ID of the product to update.
  * @param {number} newQuantity - The new quantity for the item.
  */
 export const updateCartItemQuantity = (productId, newQuantity) => {
-     const id = parseInt(productId, 10);
+    const id = parseInt(productId, 10);
     if (isNaN(id)) {
         console.error("Invalid productId provided to updateCartItemQuantity.");
         return;
     }
 
-    let cartItems = getCartItems();
-    const itemIndex = cartItems.findIndex(item => item.productId === id);
-
-    if (itemIndex > -1) {
+    const cartItems = getCartItems();
+    if (cartItems[id]) {
         if (newQuantity > 0) {
-            cartItems[itemIndex].quantity = newQuantity;
-            console.log(`Updated quantity for product ${id} to ${newQuantity}.`);
+            cartItems[id].quantity = newQuantity;
+            saveCartItems(cartItems, 'quantityUpdated', { productId: id, quantity: newQuantity });
+            console.log(`updateCartItemQuantity: Updated quantity for product ${id} to ${newQuantity}.`);
         } else {
-            // Remove item if quantity is zero or less
-            cartItems.splice(itemIndex, 1);
-            console.log(`Removed product ${id} from cart due to zero quantity.`);
+            delete cartItems[id];
+            saveCartItems(cartItems, 'itemRemoved', { productId: id });
+            console.log(`updateCartItemQuantity: Removed product ${id} from cart due to zero quantity.`);
         }
-        saveCartItems(cartItems);
     } else {
         console.warn(`Product ${id} not found in cart for quantity update.`);
     }
+    console.log("updateCartItemQuantity: Updated cart:", cartItems);
 };
 
 /**
@@ -100,22 +116,22 @@ export const updateCartItemQuantity = (productId, newQuantity) => {
  * @param {number | string} productId - The ID of the product to remove.
  */
 export const removeFromCart = (productId) => {
+    console.log("removeFromCart: Removing from cart:", productId);
     const id = parseInt(productId, 10);
      if (isNaN(id)) {
         console.error("Invalid productId provided to removeFromCart.");
         return;
     }
 
-    let cartItems = getCartItems();
-    const initialLength = cartItems.length;
-    cartItems = cartItems.filter(item => item.productId !== id);
-
-    if (cartItems.length < initialLength) {
-        saveCartItems(cartItems);
-        console.log(`Removed product ${id} from cart.`);
+    const cartItems = getCartItems();
+    if (cartItems[id]) {
+        delete cartItems[id];
+        saveCartItems(cartItems, 'itemRemoved', { productId: id });
+        console.log(`removeFromCart: Removed product ${id} from cart. New cart:`, cartItems);
     } else {
-         console.warn(`Product ${id} not found in cart for removal.`);
+        console.warn(`Product ${id} not found in cart for removal.`);
     }
+    console.log(`Removed product ${id} from cart.`);
 };
 
 /**
@@ -123,8 +139,9 @@ export const removeFromCart = (productId) => {
  * @returns {number} The total count of all items (sum of quantities).
  */
 export const getCartItemCount = () => {
-    const cartItems = getCartItems();
-    return cartItems.reduce((total, item) => total + item.quantity, 0);
+    const cart = getCartItems();
+    return Object.values(cart).reduce((total, item) => total + item.quantity, 0);
+
 };
 
 /**
@@ -132,39 +149,14 @@ export const getCartItemCount = () => {
  * @returns {number} The total price.
  */
 export const getCartTotal = () => {
-    const cartItems = getCartItems();
-    return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+    const cart = getCartItems();
+    return Object.values(cart).reduce((total, item) => total + (item.price * item.quantity), 0);
 };
 
 /**
  * Clears the entire cart from localStorage.
  */
 export const clearCart = () => {
-    localStorage.removeItem(CART_STORAGE_KEY);
-    window.dispatchEvent(new CustomEvent('cartUpdated')); // Notify update
+    saveCartItems({}, 'cartCleared');
     console.log("Cart cleared.");
 };
-
-// --- Example Usage (can be removed or commented out) ---
-/*
-// Add items
-addToCart({ id: 1, name: "Shoe A", price: 100, image: "img_a.jpg" });
-addToCart({ id: 2, name: "Shoe B", price: 150, image: "img_b.jpg" }, 2);
-addToCart({ id: 1, name: "Shoe A", price: 100, image: "img_a.jpg" }); // Increment quantity
-
-// Update quantity
-updateCartItemQuantity(2, 1); // Decrease Shoe B quantity
-updateCartItemQuantity(1, 5); // Increase Shoe A quantity
-
-// Remove item
-removeFromCart(2);
-
-// Get info
-console.log("Cart Items:", getCartItems());
-console.log("Total Items:", getCartItemCount());
-console.log("Cart Total:", getCartTotal());
-
-// Clear cart
-// clearCart();
-// console.log("Cart after clearing:", getCartItems());
-*/

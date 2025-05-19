@@ -141,3 +141,24 @@
     font-size: 0.8em;
     white-space: nowrap;
 }
+
+/* Popular Products List */
+.popular-product-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-xs) 0;
+    border-bottom: 1px dashed var(--neutral-lighter);
+    font-size: var(--font-size-sm);
+}
+.popular-product-item:last-child {
+    border-bottom: none;
+}
+
+.popular-product-item a {
+    color: var(--accent-blue);
+}
+.popular-product-item .sales-count {
+    color: var(--neutral-medium);
+    font-size: 0.9em;
+}

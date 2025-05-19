@@ -25,14 +25,8 @@
                    </button>
                </form>
                <div class="header-actions">
-                    <a href="profile.html" class="btn btn-ghost btn-icon" aria-label="Meu Perfil">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/><path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/></svg>
-                   </a>
-                   <a href="cart.html" class="btn btn-ghost btn-icon cart-icon-container" aria-label="Carrinho de compras">
-                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16"><path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.402H3.62l.958 4.596A.5.5 0 0 0 5 14h8a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4H12.44l.8-4zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/></svg>
-                       <span class="cart-count" id="cart-count"></span>
-                   </a>
-               </div>
+                    <!-- Header actions like login, cart, etc will be inserted here by JS -->
+                </div>
          </div>
      </header>
 
@@ -179,119 +173,8 @@
      </div>
 
     <script type="module">
-        // --- CORREÇÃO: Lógica JavaScript para as abas do perfil ---
-        // Esta função deve ser colocada no arquivo ../assets/js/pages/store/profile.js
-        // E removida desta tag <script> inline para uma organização de código melhor.
-
-        function setupProfileTabs() {
-            const tabsContainer = document.querySelector('.tabbed-profile-content');
-            if (!tabsContainer) {
-                console.warn('Contêiner de abas do perfil (.tabbed-profile-content) não encontrado. As abas podem não funcionar.');
-                return;
-            }
-
-            // Seleciona os BOTÕES das abas (elementos com a classe tab-button dentro de .tabs)
-            // Corrigido para selecionar <button> corretamente
-            const tabButtons = tabsContainer.querySelectorAll('.tabs .tab-button');
-
-            // Seleciona os painéis de conteúdo (seções dentro da div.tab-panels)
-            const tabPanels = tabsContainer.querySelectorAll('.tab-panels .tab-panel');
-
-            if (tabButtons.length === 0 || tabPanels.length === 0) {
-                console.warn('Botões ou painéis de abas do perfil não encontrados. As abas podem não funcionar.');
-                return;
-            }
-
-            // Adiciona o event listener a cada BOTÃO de aba
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => { // Event listener no clique do BOTÃO
-
-                    // 1. Desativar a aba ativa atual (botão e painel)
-                    const activeBtn = tabsContainer.querySelector('.tabs .tab-button.active');
-                    const activePanel = tabsContainer.querySelector('.tab-panels .tab-panel.active');
-
-                    if (activeBtn) {
-                        activeBtn.classList.remove('active');
-                        activeBtn.setAttribute('aria-selected', 'false');
-                    }
-                    if (activePanel) {
-                        activePanel.classList.remove('active');
-                        activePanel.setAttribute('aria-hidden', 'true');
-                    }
-
-                    // 2. Ativar o botão clicado
-                    button.classList.add('active');
-                    button.setAttribute('aria-selected', 'true');
-
-                    // 3. Encontrar e ativar o painel correspondente
-                    // --- CORREÇÃO CRÍTICA: Usar o atributo DATA-TAB do BOTÃO ---
-                    const targetPanelId = button.dataset.tab;
-                    const targetPanel = tabsContainer.querySelector(`#${targetPanelId}`);
-
-                    if (targetPanel) {
-                        targetPanel.classList.add('active');
-                        targetPanel.setAttribute('aria-hidden', 'false');
-                        // Opcional: Scroll suave (revisar se é necessário para abas internas)
-                        // targetPanel.scrollIntoView({ behavior: 'smooth' });
-                    } else {
-                        console.error(`Painel com ID "${targetPanelId}" não encontrado. Verifique se o 'data-tab' no botão corresponde a um 'id' de painel.`);
-                    }
-                });
-            });
-
-            // --- Lógica para garantir que UM painel esteja visível ao carregar ---
-            // Baseado na classe 'active' definida no HTML nos botões.
-            const initialActiveButton = tabsContainer.querySelector('.tabs .tab-button.active');
-
-            if (initialActiveButton) {
-                 // Encontra o painel correspondente ao botão marcado como ativo no HTML
-                 const targetPanelId = initialActiveButton.dataset.tab; // Usar dataset.tab
-                 const targetPanel = tabsContainer.querySelector(`#${targetPanelId}`);
-
-                 if (targetPanel) {
-                      // Garante que o painel correspondente ao botão ativo inicial está visível
-                      // Remove 'active' de outros painéis se houver (embora o CSS já esconda)
-                      tabPanels.forEach(panel => {
-                          if (panel.id !== targetPanelId) {
-                              panel.classList.remove('active');
-                              panel.setAttribute('aria-hidden', 'true');
-                          }
-                      });
-                      // Adiciona 'active' ao painel correto e garante ARIA correto
-                      targetPanel.classList.add('active');
-                      targetPanel.setAttribute('aria-hidden', 'false');
-
-                 } else {
-                      console.error(`Painel inicial com ID "${targetPanelId}" (do botão ativo no HTML) não encontrado.`);
-                      // Fallback: Ativa a primeira aba e painel se o painel ativo inicial não for encontrado
-                      if (tabButtons.length > 0 && tabPanels.length > 0) {
-                           console.warn('Ativando a primeira aba/painel como fallback.');
-                           tabButtons[0].classList.add('active');
-                           tabButtons[0].setAttribute('aria-selected', 'true');
-                           tabPanels[0].classList.add('active');
-                           tabPanels[0].setAttribute('aria-hidden', 'false');
-                      }
-                 }
-             } else if (tabButtons.length > 0 && tabPanels.length > 0) {
-                // Fallback: Se NENHUM botão de aba tiver a classe 'active' no HTML, ativa o primeiro por padrão
-                console.warn('Nenhuma aba marcada como ativa no HTML. Ativando a primeira aba/painel por padrão.');
-                tabButtons[0].classList.add('active');
-                tabButtons[0].setAttribute('aria-selected', 'true');
-                tabPanels[0].classList.add('active');
-                tabPanels[0].setAttribute('aria-hidden', 'false');
-             }
-        }
-
-        // Chame a função de configuração quando o DOM estiver pronto
-        // Se este script for 'type="module"', ele já roda após o DOM carregar, mas DOMContentLoaded é mais seguro.
-        document.addEventListener('DOMContentLoaded', setupProfileTabs);
-
-        // --- RECOMENDAÇÃO: ---
-        // Remova esta tag <script> inline e coloque a função setupProfileTabs
-        // e a linha document.addEventListener(...) no arquivo
-        // ../assets/js/pages/store/profile.js.
-        // Certifique-se de que profile.js é importado no HTML.
-
+         import { setupProfileTabs } from '../assets/js/pages/store/profile.js';
+         setupProfileTabs();
     </script>
     <script src="../assets/js/modules/utils.js" type="module"></script>
     <script src="../assets/js/modules/cart.js" type="module"></script>
@@ -299,6 +182,6 @@
     <script src="../assets/js/modules/api.js" type="module"></script>
     <script src="../assets/js/pages/store/floating-buttons.js" type="module"></script>
     <script src="../assets/js/pages/store/profile.js" type="module"></script>
-    <script src="../assets/js/global.js" type="module"></script>
+    <script src="../assets/js/global.js" type="module"></script> 
 </body>
 </html>
